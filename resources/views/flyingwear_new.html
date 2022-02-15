@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Flyingwear | Buy anything you want...!!</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/16139588c8.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/sidenav.css">
+        <style>
+            /*css below for navbar...*/
+                .carousel-control-prev-icon {
+                background-color: black;
+                }
+                .carousel-control-next-icon{
+                    background-color: black;
+                }
+                body::-webkit-scrollbar {
+                width: 1em;
+                }
+                
+                body::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                }
+                
+                body::-webkit-scrollbar-thumb {
+                background-color: darkgrey;
+                outline: 1px solid slategrey;
+                }
+                body{
+                    background: #fffef2;
+                    /*fffdd0 -1st creame
+                    fffef2 - 2nd creame*/
+                }
+                #logo{
+                    height: 2.7em;
+                }
+
+                @media screen and (max-width: 991px){
+                    .cart-ul-mobile{
+                        display: block;
+                        margin-right: 0.8em;
+                    }
+                    .navbar{
+                        padding-left: 0.3em !important;
+                        padding-right: 0.3em !important;
+                    }
+                    .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus{
+                            color: #ffbd59;
+                    }
+                    .cart-ul-laptop{
+                    display: none;
+                    }
+                    .nav-link{
+                    font-size: 1.22em;
+                    }
+                }
+                @media screen and (min-width: 991px){
+                    .cart-ul-mobile{
+                        display: none;
+                    }
+                    .cart-ul-laptop{
+                    display: list-item;
+                    }
+                }
+                .nav-link{
+                    font-size: 1.1em;
+                }
+                .navbar-dark .navbar-nav .nav-link{
+                    color: #ffbd59;
+                }
+                .navbar-dark .navbar-nav .nav-link:focus{
+                    color: #ffbd59;
+                }
+                .sup-no{
+                font-size: 1em;
+                }
+                /*card css below*/
+                @media screen and (min-width: 991px){
+                .lg-margin-card{
+                    margin-left:1rem;
+                }
+            }
+            .lg-margin-card{
+                    margin:1rem;
+                }
+                
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <!-- <all-products-offcanvas-component></all-products-offcanvas-component> -->
+            <navbar-component v-bind:cart="cart" v-bind:current_user="current_user"></navbar-component>
+            <router-view name="joggers-page-component"></router-view>
+        </div>
+
+
+        
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+        <script src="js/app.js"></script>
+        <script src="js/dropdown.js"></script>
+    </body>
+</html>
+
+
