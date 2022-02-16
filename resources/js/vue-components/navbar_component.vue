@@ -1,5 +1,5 @@
 <template>
-    <nav id="my_nav" class="navbar navbar-expand-lg navbar-dark bg-dark py-0 fixed-top" >
+    <nav id="my_nav" class="navbar navbar-expand-lg navbar-dark bg-dark py-0 fixed-top"  >
         <all-products-offcanvas-component></all-products-offcanvas-component>
 		 <a class="navbar-brand" href="#"><img src="storage/logo.png" id="logo"></a>
 		 <ul class="navbar-nav ml-auto cart-ul-mobile">

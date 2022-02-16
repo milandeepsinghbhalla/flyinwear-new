@@ -1,0 +1,322 @@
+.carousel-control-prev-icon {
+    background-color: black;
+}
+.carousel-control-next-icon{
+    background-color: black;
+}
+body::-webkit-scrollbar {
+  width: 1em;
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+body{
+    background: #fffef2;
+    /*fffdd0 -1st creame
+    fffef2 - 2nd creame*/
+}
+#logo{
+    height: 2.7em;
+}
+
+@media screen and (max-width: 991px){
+       .cart-ul-mobile{
+           display: block;
+           margin-right: 0.8em;
+       }
+       .navbar{
+           padding-left: 0.3em !important;
+        padding-right: 0.3em !important;
+       }
+       .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus{
+            color: #ffbd59;
+    }
+    .cart-ul-laptop{
+       display: none;
+       }
+       .nav-link{
+       font-size: 1.22em;
+       }
+   }
+   @media screen and (min-width: 991px){
+       .cart-ul-mobile{
+           display: none;
+       }
+       .cart-ul-laptop{
+       display: list-item;
+       }
+   }
+   .nav-link{
+       font-size: 1.1em;
+   }
+   .navbar-dark .navbar-nav .nav-link{
+       color: #ffbd59;
+   }
+   .navbar-dark .navbar-nav .nav-link:focus{
+    color: #ffbd59;
+}
+.sup-no{
+font-size: 1em;
+}
+/*product-card-css-below*/
+/*.bg-grey{
+    background-color: #d3d3d3;
+    background-color: #ffbd59;
+}
+*/		.crd-new-hrz{
+   border-radius: 1.5em;
+   border: 1px solid black;
+   height: fit-content;
+
+   }
+   
+   .img-fill-new{
+    width: 100%;
+    height: 14em;
+    border-radius: 1.3em;
+       border: 1px solid black;
+    padding: 0;
+}
+.cart-height{
+    height: 16em;
+}
+.card-footer-horizontal{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 7%;
+}
+.stock-info{
+margin-left: 1em;
+}
+.price{
+font-weight: bold;
+color: black;
+}
+.in-mob-text{
+    color: #ffbd59;
+}
+.orange{
+background-color: #ffbd59;
+border-color: #ffbd59;
+color: black;
+}
+button.orange:focus{
+    outline: none!important;
+    border: none;
+    box-shadow: none; 
+}
+
+@media screen and (max-width: 650px){
+       .img-fill-new{
+        height: 8.5em !important;
+    }
+    .cart-height{
+        height: 10.5em !important;
+    }
+    .in-mob-text{
+        font-size: 0.8em;
+        margin-bottom: 0.13em;
+        color: #ffbd59;
+    }
+    .in-mob-text-sizes{
+           font-size: 0.7em !important;
+           color: #ffbd59;
+           margin-top: 0.2em;
+       }
+    .in-mob-text-card{
+        font-size: 0.9em;
+    }
+   }
+   .in-mob-text-sizes{
+       font-size: 1em;
+       color: #ffbd59;
+       margin-bottom: 0.2em;
+   }
+   .modal-img{
+       height: 21.7em;
+   }
+   .return-line{
+       display: inline-block;
+       margin-left: 9em;
+   }
+   @media screen and (max-width: 725px){
+       .return-line{
+           margin-left: 2em;
+       }
+   }
+   @media screen and (max-width: 368px){
+       .return-line{
+           display: block;
+           margin-left: 0;
+           margin-top: 0.4em;
+       }
+       .img-fill-new{
+        height: 10em !important;
+    }
+    .cart-height{
+        height: 12em !important;
+    }
+    .mob-button{
+        padding-left: 0.3em;
+        padding-right: 0.3em;
+    }
+   }
+   @media screen and (min-width: 576px){
+       .mob-button-out{
+            padding-left: 0.3em;
+            padding-right: 0.3em;
+    }
+}
+ /* css below this for description input  */
+.bio-prof-input-note{
+    border-radius: 25px;
+    background: #FFCC80;
+    width: 50%;
+    font-size: 1.1em;
+    margin-top: 1em;
+    height: 5em;
+    display: block;
+}
+.bio-prof-input-note:focus{
+    outline: none;
+}
+/* css below this for filters model */
+.filters-col-box{
+    width: 0.8em;
+    height: 0.8em;
+    display: inline-block;
+    margin-left: 0.5em;
+}
+/* loading annimation below */
+    .loader-container{
+        position: fixed;
+        z-index: 999999;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+    }
+    .loader {
+        border: 10px solid #343a40;
+        border-top: 10px solid #FFCC80;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        animation: spin 2s linear infinite;
+        
+    }
+    @media screen and (max-width: 520px){
+        .loader{
+            position: absolute;
+            top: 50%;
+            left: 40%;
+        }
+    }
+    @media screen and (min-width: 520px){
+        .loader{
+            position: absolute;
+            top: 50%;
+            left: 45%;
+        }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+/* css below this is for confirm-order page */
+.back-logo{
+    color:  #FFBD59 !important;
+}
+.bg-order-card-body{
+    background-color: #FFBD59;
+}
+.order-total{
+    border-top: 1px solid black;
+    padding-top: 0.6em;
+    margin-right: 1em;
+}
+.orders-border{
+    border: 5px solid #FFBD59 ;
+}
+
+/* css below for home page*/
+.back-img-round-neck{
+        background-image: url("storage/home_banners/tshirt_banner.webp");
+        background-size: 100% 100%;
+        height: 16em;
+        background-repeat: no-repeat;
+
+}
+.back{
+    background-size: 100% 100%;
+    height: 16em;
+    background-repeat: no-repeat;
+}
+.back-img-polo{
+    background-image: url("storage/home_banners/polo_banner.jpeg");
+}
+.back-img-shirts{
+    background-image: url("storage/home_banners/shirts_banner.jpeg");
+
+}
+.back-img-sweatshirts{
+    background-image: url("storage/home_banners/sweatshirt_banner.jpg");
+
+}
+.back-img-Kurtas{
+    background-image: url("storage/home_banners/Kurtas_banner.jpg");
+
+}
+.back-img-Jeans{
+    background-image: url("storage/home_banners/Jeans_banner.jpg");
+
+}
+.back-img-Joggers{
+    background-image: url("storage/home_banners/Joggers_banner.jpg");
+
+}
+
+
+.button-position{
+    position: absolute;
+    bottom: 1.5em;
+    right: 20em;
+}
+@media screen and (max-width: 383px){
+    .button-position{
+        right: 125px !important;
+    }
+}
+@media screen and (max-width: 668px){
+    .button-position{
+        right: 14em;
+    }
+    
+    .disp-main-home{
+    font-size: 1.2em;
+    }
+}
+@media screen and (min-width: 669px){
+    
+    .disp-main-home{
+    font-size: 2.2em;
+}
+}
+.home-para-main{
+    background: #FFCC80;
+}
+.bg-main-button{
+    background: #DA70D6;
+    border-radius: 50px
+}
