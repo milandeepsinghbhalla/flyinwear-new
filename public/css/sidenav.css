@@ -56,3 +56,8 @@
       .box-dropdown{
           margin-left: 3em;
       }
+      .float-none{
+        float: none !important;
+        width: 2.2em;
+        position: relative !important;
+      }

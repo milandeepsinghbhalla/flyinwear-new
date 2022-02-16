@@ -9,6 +9,7 @@ Vue.use(VueScrollTo);
 import navbar_component from './vue-components/navbar_component.vue';
 import all_products_offcanvas_component from "./vue-components/all_products_offcanvas_component.vue";
 import joggers_page_component from "./vue-components/joggers_page_component.vue"
+import product_details_component from "./vue-components/product_details_component.vue"
 const router = new VueRouter({
 	routes: [
         {
@@ -23,6 +24,13 @@ const router = new VueRouter({
             path:'/joggers',
             components:{
                 "joggers-page-component": joggers_page_component
+            }
+            
+        },
+        {
+            path:'/product-details/:key',
+            components:{
+                "product_details_component": product_details_component
             }
             
         },
@@ -53,7 +61,67 @@ const webstore = new Vue({
             sweat_shirts: [],
             kurtas: [],
             jeans: [],
-            joggers: [],
+            joggers: [{
+                id: 1,
+                title: "black jogger with great fabric..(long lasting)",
+                card_img: "storage/jogger.jpeg",
+                sizes: "M L XL 2xl",
+                price: 750,
+                weight: 8.34,
+                stock: 40,
+                colors: ["black"],
+                fabric: "cotton",
+                images: [],
+                stock_s: 10,
+                stock_l: 10,
+                stock_xl: 0,
+                stock_2xl: 0,
+                stock_3xl: 0,
+                stock_4xl: 0,
+                stock_5xl: 0,
+                key: "clothing-joggers-1"
+            },
+            {
+                id: 2,
+                title: "black jogger with great fabric..(long lasting)",
+                card_img: "storage/jogger.jpeg",
+                sizes: "M L XL 2xl",
+                price: 750,
+                weight: 8.34,
+                stock: 40,
+                colors: ["black"],
+                fabric: "cotton",
+                images: [],
+                stock_s: 10,
+                stock_l: 10,
+                stock_xl: 0,
+                stock_2xl: 0,
+                stock_3xl: 0,
+                stock_4xl: 0,
+                stock_5xl: 0,
+                key: "clothing-joggers-2"
+            },
+            {
+                id: 3,
+                title: "black jogger with great fabric..(long lasting)",
+                card_img: "storage/jogger.jpeg",
+                sizes: "M L XL 2xl",
+                price: 750,
+                weight: 8.34,
+                stock: 40,
+                colors: ["black"],
+                fabric: "cotton",
+                images: [],
+                stock_s: 10,
+                stock_l: 10,
+                stock_xl: 0,
+                stock_2xl: 0,
+                stock_3xl: 0,
+                stock_4xl: 0,
+                stock_5xl: 0,
+                key: "clothing-joggers-3"
+            }
+            ],
             caperies: [],
             shorts: [],
             cart: [],

@@ -149,7 +149,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'product-card-component': _product_card_component_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
+  },
+  props: ["joggers"]
 });
 
 /***/ }),
@@ -253,15 +254,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  data: function data() {
-    return {
-      product: {
-        card_img: "storage/jogger.jpeg",
-        title: "black jogger with great fabric..(long lasting)",
-        price: "750",
-        stock: 30
-      }
-    };
+  props: ["product"],
+  methods: {
+    open_pro_det: function open_pro_det(product) {
+      location.assign("/#/product-details/" + product.key);
+    }
   }
 });
 
@@ -283,6 +280,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_navbar_component_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue-components/navbar_component.vue */ "./resources/js/vue-components/navbar_component.vue");
 /* harmony import */ var _vue_components_all_products_offcanvas_component_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vue-components/all_products_offcanvas_component.vue */ "./resources/js/vue-components/all_products_offcanvas_component.vue");
 /* harmony import */ var _vue_components_joggers_page_component_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vue-components/joggers_page_component.vue */ "./resources/js/vue-components/joggers_page_component.vue");
+/* harmony import */ var _vue_components_product_details_component_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./vue-components/product_details_component.vue */ "./resources/js/vue-components/product_details_component.vue");
 
 
 
@@ -290,6 +288,7 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vue_resource__WEBPACK_IMPORTED_MODULE_0__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].use((vue_scrollto__WEBPACK_IMPORTED_MODULE_1___default()));
+
 
 
 
@@ -302,6 +301,11 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     path: '/joggers',
     components: {
       "joggers-page-component": _vue_components_joggers_page_component_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    }
+  }, {
+    path: '/product-details/:key',
+    components: {
+      "product_details_component": _vue_components_product_details_component_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
     }
   }]
 });
@@ -330,7 +334,64 @@ var webstore = new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
       sweat_shirts: [],
       kurtas: [],
       jeans: [],
-      joggers: [],
+      joggers: [{
+        id: 1,
+        title: "black jogger with great fabric..(long lasting)",
+        card_img: "storage/jogger.jpeg",
+        sizes: "M L XL 2xl",
+        price: 750,
+        weight: 8.34,
+        stock: 40,
+        colors: ["black"],
+        fabric: "cotton",
+        images: [],
+        stock_s: 10,
+        stock_l: 10,
+        stock_xl: 0,
+        stock_2xl: 0,
+        stock_3xl: 0,
+        stock_4xl: 0,
+        stock_5xl: 0,
+        key: "clothing-joggers-1"
+      }, {
+        id: 2,
+        title: "black jogger with great fabric..(long lasting)",
+        card_img: "storage/jogger.jpeg",
+        sizes: "M L XL 2xl",
+        price: 750,
+        weight: 8.34,
+        stock: 40,
+        colors: ["black"],
+        fabric: "cotton",
+        images: [],
+        stock_s: 10,
+        stock_l: 10,
+        stock_xl: 0,
+        stock_2xl: 0,
+        stock_3xl: 0,
+        stock_4xl: 0,
+        stock_5xl: 0,
+        key: "clothing-joggers-2"
+      }, {
+        id: 3,
+        title: "black jogger with great fabric..(long lasting)",
+        card_img: "storage/jogger.jpeg",
+        sizes: "M L XL 2xl",
+        price: 750,
+        weight: 8.34,
+        stock: 40,
+        colors: ["black"],
+        fabric: "cotton",
+        images: [],
+        stock_s: 10,
+        stock_l: 10,
+        stock_xl: 0,
+        stock_2xl: 0,
+        stock_3xl: 0,
+        stock_4xl: 0,
+        stock_5xl: 0,
+        key: "clothing-joggers-3"
+      }],
       caperies: [],
       shorts: [],
       cart: [],
@@ -514,6 +575,43 @@ component.options.__file = "resources/js/vue-components/product_card_component.v
 
 /***/ }),
 
+/***/ "./resources/js/vue-components/product_details_component.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/vue-components/product_details_component.vue ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _product_details_component_vue_vue_type_template_id_5298719c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./product_details_component.vue?vue&type=template&id=5298719c& */ "./resources/js/vue-components/product_details_component.vue?vue&type=template&id=5298719c&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _product_details_component_vue_vue_type_template_id_5298719c___WEBPACK_IMPORTED_MODULE_0__.render,
+  _product_details_component_vue_vue_type_template_id_5298719c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/vue-components/product_details_component.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/vue-components/all_products_offcanvas_component.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************!*\
   !*** ./resources/js/vue-components/all_products_offcanvas_component.vue?vue&type=script&lang=js& ***!
@@ -646,6 +744,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/vue-components/product_details_component.vue?vue&type=template&id=5298719c&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/vue-components/product_details_component.vue?vue&type=template&id=5298719c& ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_product_details_component_vue_vue_type_template_id_5298719c___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_product_details_component_vue_vue_type_template_id_5298719c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_product_details_component_vue_vue_type_template_id_5298719c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./product_details_component.vue?vue&type=template&id=5298719c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue-components/product_details_component.vue?vue&type=template&id=5298719c&");
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue-components/all_products_offcanvas_component.vue?vue&type=template&id=10bd3468&":
 /*!************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue-components/all_products_offcanvas_component.vue?vue&type=template&id=10bd3468& ***!
@@ -677,7 +792,7 @@ var render = function () {
       [_vm._v("×")]
     ),
     _vm._v(" "),
-    _c("ul", [
+    _c("ul", { staticStyle: { "list-style": "none" } }, [
       _c("li", { staticClass: "nav-item dropdown" }, [
         _c(
           "a",
@@ -697,11 +812,11 @@ var render = function () {
         _c(
           "ul",
           {
-            staticClass: "dropdown-menu box-dropdown",
+            staticClass: "dropdown-menu box-dropdown float-none",
             attrs: { "aria-labelledby": "navbarDropdownMenuLink" },
           },
           [
-            _c("li", { staticClass: "dropdown-submenu" }, [
+            _c("li", { staticClass: "dropdown-submenu " }, [
               _c(
                 "a",
                 {
@@ -711,7 +826,7 @@ var render = function () {
                 [_vm._v("Upper-wear")]
               ),
               _vm._v(" "),
-              _c("ul", { staticClass: "dropdown-menu" }, [
+              _c("ul", { staticClass: "dropdown-menu float-none" }, [
                 _c(
                   "li",
                   { on: { click: _vm.closeNav } },
@@ -750,7 +865,7 @@ var render = function () {
                     [_vm._v("T-Shirts")]
                   ),
                   _vm._v(" "),
-                  _c("ul", { staticClass: "dropdown-menu" }, [
+                  _c("ul", { staticClass: "dropdown-menu float-none" }, [
                     _c(
                       "li",
                       { on: { click: _vm.closeNav } },
@@ -863,7 +978,7 @@ var render = function () {
               ]),
             ]),
             _vm._v(" "),
-            _c("li", { staticClass: "dropdown-submenu" }, [
+            _c("li", { staticClass: "dropdown-submenu " }, [
               _c(
                 "a",
                 {
@@ -873,7 +988,7 @@ var render = function () {
                 [_vm._v("Bottom-wear")]
               ),
               _vm._v(" "),
-              _c("ul", { staticClass: "dropdown-menu" }, [
+              _c("ul", { staticClass: "dropdown-menu float-none" }, [
                 _c(
                   "li",
                   { on: { click: _vm.closeNav } },
@@ -1037,7 +1152,7 @@ var render = function () {
         _c(
           "ul",
           {
-            staticClass: "dropdown-menu box-dropdown",
+            staticClass: "dropdown-menu box-dropdown float-none",
             attrs: { "aria-labelledby": "navbarDropdownMenuLink" },
           },
           [
@@ -1051,7 +1166,7 @@ var render = function () {
                 [_vm._v("Upper-wear")]
               ),
               _vm._v(" "),
-              _c("ul", { staticClass: "dropdown-menu" }, [
+              _c("ul", { staticClass: "dropdown-menu float-none" }, [
                 _c(
                   "li",
                   { on: { click: _vm.closeNav } },
@@ -1312,7 +1427,7 @@ var render = function () {
         _c(
           "ul",
           {
-            staticClass: "dropdown-menu box-dropdown",
+            staticClass: "dropdown-menu box-dropdown float-none",
             attrs: { "aria-labelledby": "navbarDropdownMenuLink" },
           },
           [
@@ -1446,7 +1561,7 @@ var render = function () {
         _c(
           "ul",
           {
-            staticClass: "dropdown-menu box-dropdown",
+            staticClass: "dropdown-menu box-dropdown float-none",
             attrs: { "aria-labelledby": "navbarDropdownMenuLink" },
           },
           [
@@ -1607,7 +1722,7 @@ var render = function () {
         _c(
           "ul",
           {
-            staticClass: "dropdown-menu box-dropdown",
+            staticClass: "dropdown-menu box-dropdown float-none",
             attrs: { "aria-labelledby": "navbarDropdownMenuLink" },
           },
           [
@@ -1758,8 +1873,11 @@ var render = function () {
       _c(
         "div",
         { staticClass: "row justify-content-center" },
-        _vm._l(5, function (i) {
-          return _c("product-card-component", { key: i })
+        _vm._l(_vm.joggers, function (jogger) {
+          return _c("product-card-component", {
+            key: jogger.key,
+            attrs: { product: jogger },
+          })
         }),
         1
       ),
@@ -2041,7 +2159,14 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "card col-lg-3 rounded  shadow-lg mb-4 lg-margin-card" },
+    {
+      staticClass: "card col-lg-3 rounded  shadow-lg mb-4 lg-margin-card",
+      on: {
+        click: function ($event) {
+          return _vm.open_pro_det(_vm.product)
+        },
+      },
+    },
     [
       _c("img", {
         staticClass: "card-img-top",
@@ -2066,6 +2191,31 @@ var render = function () {
       ]),
     ]
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue-components/product_details_component.vue?vue&type=template&id=5298719c&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue-components/product_details_component.vue?vue&type=template&id=5298719c& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [_vm._v("\n    details component..!!\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
