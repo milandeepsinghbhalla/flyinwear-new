@@ -9,15 +9,32 @@ Vue.use(VueScrollTo);
 import navbar_component from './vue-components/navbar_component.vue';
 import all_products_offcanvas_component from "./vue-components/all_products_offcanvas_component.vue";
 import joggers_page_component from "./vue-components/joggers_page_component.vue"
+import desktops_page_component from "./vue-components/desktops_page_component.vue"
+
 import product_details_component from "./vue-components/product_details_component.vue"
+import cart_page_component from "./vue-components/cart_page_component.vue"
+import sign_up_page_component from "./vue-components/sign_up_page_component.vue"
+import admin_page_component from "./vue-components/admin_page_component.vue"
+
+
 const router = new VueRouter({
 	routes: [
         {
-            path:'/cart',
+            path:'/login',
             
         },
         {
-            path:'/login',
+            path:'/sign-up',
+            components:{
+                'sign-up-page-component': sign_up_page_component
+            }
+            
+        },
+        {
+            path:'/admin',
+            components:{
+                'admin-page-component': admin_page_component
+            }
             
         },
         {
@@ -28,9 +45,23 @@ const router = new VueRouter({
             
         },
         {
+            path:'/desktops',
+            components:{
+                "desktops-page-component": desktops_page_component
+            }
+            
+        },
+        {
             path:'/product-details/:key',
             components:{
                 "product_details_component": product_details_component
+            }
+            
+        },
+        {
+            path:'/cart',
+            components:{
+                "cart-page-component": cart_page_component
             }
             
         },
@@ -135,7 +166,8 @@ const webstore = new Vue({
                 wieght: "5kg",
                 images: [],
                 key: "electronincs-desktops-4",
-                keywords: "", 
+                keywords: "",
+                colors: ["grey"] 
             },
             {
                 id: 5,
@@ -146,97 +178,40 @@ const webstore = new Vue({
                 price: 45000,
                 wieght: "5kg",
                 images: [],
-                key: "electronincs-desktops-4",
+                key: "electronincs-desktops-5",
                 keywords: "", 
+                colors: ["black"]
             },
         ],
             all_products:[{
                 id: 1,
                 title: "black jogger with great fabric..(long lasting)",
-                card_img: "storage/jogger.jpeg",
-                sizes: "M L XL 2xl",
-                price: 750,
-                weight: 8.34,
-                stock: 40,
-                colors: ["black"],
-                fabric: "cotton",
-                images: [],
-                stock_s: 10,
-                stock_l: 10,
-                stock_xl: 0,
-                stock_2xl: 0,
-                stock_3xl: 0,
-                stock_4xl: 0,
-                stock_5xl: 0,
-                key: "clothing-joggers-1",
-                t_name: "joggers"
+                t_name: "joggers",
+                stock: 40
             },
             {
                 id: 2,
                 title: "black jogger with great fabric..(long lasting)",
-                card_img: "storage/jogger.jpeg",
-                sizes: "M L XL 2xl",
-                price: 750,
-                weight: 8.34,
+               
                 stock: 40,
-                colors: ["black"],
-                fabric: "cotton",
-                images: [],
-                stock_s: 10,
-                stock_l: 10,
-                stock_xl: 0,
-                stock_2xl: 0,
-                stock_3xl: 0,
-                stock_4xl: 0,
-                stock_5xl: 0,
-                key: "clothing-joggers-2",
                 t_name: "joggers"
             },
             {
                 id: 3,
                 title: "black jogger with great fabric..(long lasting)",
-                card_img: "storage/jogger.jpeg",
-                sizes: "M L XL 2xl",
-                price: 750,
-                weight: 8.34,
                 stock: 40,
-                colors: ["black"],
-                fabric: "cotton",
-                images: [],
-                stock_s: 10,
-                stock_l: 10,
-                stock_xl: 0,
-                stock_2xl: 0,
-                stock_3xl: 0,
-                stock_4xl: 0,
-                stock_5xl: 0,
-                key: "clothing-joggers-3",
                 t_name: "joggers"
             },
             {
                 id: 4,
                 title: "Dell companion 15 i5 6th gen 8gb ram 1tb Hdd + 512gb ssd",
                 stock: 40,
-                features: [],
-                card_img: "storage/jogger.jpeg",
-                price: 45000,
-                wieght: "5kg",
-                images: [],
-                key: "electronincs-desktops-4",
-                keywords: "", 
                 t_name: "desktops"
             },
             {
                 id: 5,
                 title: "Dell companion 15 i5 6th gen 8gb ram 1tb Hdd + 512gb ssd",
                 stock: 40,
-                features: [],
-                card_img: "storage/jogger.jpeg",
-                price: 45000,
-                wieght: "5kg",
-                images: [],
-                key: "electronincs-desktops-4",
-                keywords: "", 
                 t_name: "desktops"
             }
             ],
@@ -308,6 +283,7 @@ const webstore = new Vue({
                           if(the_product.fabric)
                           o.fabric= the_product.fabric
                           o.images= the_product.images
+                          o.key = the_product.key
                          
                   final.push(o);
                     }

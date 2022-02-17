@@ -97,7 +97,17 @@
             <!-- <all-products-offcanvas-component></all-products-offcanvas-component> -->
             <navbar-component v-bind:cart="cart" v-bind:current_user="current_user"></navbar-component>
             <router-view name="joggers-page-component" v-bind:joggers="joggers"></router-view>
-            <router-view name="product_details_component" v-bind:joggers="joggers" :current_user="current_user" :all_products="all_products" :cart="cart" :can_add_to_cart="can_add_to_cart"></router-view>
+            <router-view name="desktops-page-component" v-bind:desktops="desktops"></router-view>
+
+            <router-view name="product_details_component" v-bind:joggers="joggers" v-bind:desktops="desktops" :current_user="current_user" :all_products="all_products" :cart="cart" :can_add_to_cart="can_add_to_cart"></router-view>
+            <router-view name="cart-page-component" v-bind:can_add_to_cart="can_add_to_cart"
+            v-bind:cart="cart"
+            v-bind:items_in_cart="items_in_cart"
+            v-bind:all_products="all_products"
+            v-bind:current_user="current_user" > </router-view>
+            <router-view name="sign-up-page-component" ></router-view>
+            <router-view name="admin-page-component" ></router-view>
+
 
         </div>
 
