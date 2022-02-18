@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class jogger extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id';
+    public $timestamps = false;
 }

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user_controller;
+use App\Http\Controllers\productcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,5 @@ Route::post('add-admin',[user_controller::class,'add_admin']);
 Route::post('add-vendor',[user_controller::class,'add_vendor']);
 Route::post('remove-admin',[user_controller::class,'remove_admin']);
 Route::post('remove-vendor',[user_controller::class,'remove_vendor']);
+Route::post('add-product-clothing',[productcontroller::class,'add_product_clothing']);
 

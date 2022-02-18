@@ -15,10 +15,18 @@ import product_details_component from "./vue-components/product_details_componen
 import cart_page_component from "./vue-components/cart_page_component.vue"
 import sign_up_page_component from "./vue-components/sign_up_page_component.vue"
 import admin_page_component from "./vue-components/admin_page_component.vue"
+import vendor_page_component from "./vue-components/vendor_page_component.vue"
 
 
 const router = new VueRouter({
 	routes: [
+        {
+            path:'/vendor',
+            components:{
+                'vendor-page-component': vendor_page_component
+            }
+            
+        },
         {
             path:'/login',
             
