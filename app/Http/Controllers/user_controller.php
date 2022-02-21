@@ -20,6 +20,7 @@ class user_controller extends Controller
             $new_user->number = $req->number;
             $new_user->role = $req->role;
             $new_user->password = Hash::make($req->password);
+            $new_user->cart = $req->cart;
             $result = $new_user->save();
             if($result){
                 return ['result'=>'user signed up as ' . $req->name,
@@ -133,5 +134,66 @@ class user_controller extends Controller
         else{
             return ["result"=>"no user with that email", "status"=>0];
         }
+    }
+    public function login_user(Request $req){
+        
+        $user = user::where("email","=",$req->email)->first();
+        if($user){
+            if(Hash::check($req->password,$user->password)){
+                
+                    $req_cart = json_decode($req->cart);
+                    $current_cart = json_decode($user->cart);
+                    $new_cart = [];
+                    for($i=0;$i<count($req_cart);$i++){
+                        $chk = 0;
+                        for($x=0;$x<count($current_cart);$x++){
+                            if($current_cart[$x]->cart_id==$req_cart[$i]->cart_id){
+                                $chk = 1;
+                                return ["msg" =>"chked"];
+                                break;
+                            }
+
+                        }
+                        if($chk==0){
+                            array_push($new_cart,$req_cart[$i]);
+                        }
+                    }
+                    $current_cart = array_merge($current_cart,$new_cart);
+                    $user->cart = json_encode($current_cart);
+                    $user->save();
+                $current_user  = $user;
+               
+                $current_user->password = null;
+                
+                return ["status"=>1,"current_user"=> $current_user,"msg"=>"Logged successfully"];
+            }
+            else{
+                return["status"=>0,"msg"=>"wrong password"];
+            }
+        }
+        else{
+            return ["msg"=> "there is no user with that email"];
+        }
+    }
+    public function update_cart(Request $req){
+        $user = user::find($req->id)->first();
+        $user->cart = $req->cart;
+        $user->save();
+    }
+    public function get_wishlist(Request $req){
+        $user = user::find($req->id)->first();
+        if($user->wishlist){
+            return ["wishlist"=> $user->wishlist];
+        }
+        else{
+            $empty_array = [];
+            $empty_array = json_encode($empty_array);
+            return ["wishlist"=> $empty_array];
+        }
+    }
+    public function update_wishlist(Request $req){
+        $user = user::find($req->id)->first();
+        $user->wishlist = $req->wishlist;
+        $user->save();
     }
 }

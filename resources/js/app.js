@@ -10,12 +10,16 @@ import navbar_component from './vue-components/navbar_component.vue';
 import all_products_offcanvas_component from "./vue-components/all_products_offcanvas_component.vue";
 import joggers_page_component from "./vue-components/joggers_page_component.vue"
 import desktops_page_component from "./vue-components/desktops_page_component.vue"
+import wishlist_page_component from "./vue-components/wishlist_page_component.vue"
 
 import product_details_component from "./vue-components/product_details_component.vue"
 import cart_page_component from "./vue-components/cart_page_component.vue"
 import sign_up_page_component from "./vue-components/sign_up_page_component.vue"
 import admin_page_component from "./vue-components/admin_page_component.vue"
 import vendor_page_component from "./vue-components/vendor_page_component.vue"
+import login_page_component from "./vue-components/login_page_component.vue"
+
+import { forEach } from "lodash";
 
 
 const router = new VueRouter({
@@ -29,7 +33,9 @@ const router = new VueRouter({
         },
         {
             path:'/login',
-            
+            components:{
+                "login-page-component": login_page_component
+            }
         },
         {
             path:'/sign-up',
@@ -73,6 +79,13 @@ const router = new VueRouter({
             }
             
         },
+        {
+            path:'/wishlist',
+            components:{
+                "wishlist-page-component": wishlist_page_component
+            }
+            
+        },
     ]
     })
 const webstore = new Vue({
@@ -89,10 +102,7 @@ const webstore = new Vue({
             signform: {},
             login: {},
             current_user: {
-                uid: 1,
-                name: 'milan',
-                w_number: 9999,
-                number: 9999
+               
             },
             shirts: [],
             round_necks:[],
@@ -100,129 +110,133 @@ const webstore = new Vue({
             sweat_shirts: [],
             kurtas: [],
             jeans: [],
-            joggers: [{
-                id: 1,
-                title: "black jogger with great fabric..(long lasting)",
-                card_img: "storage/jogger.jpeg",
-                sizes: "M L XL 2xl",
-                price: 750,
-                weight: 8.34,
-                stock: 40,
-                colors: ["black"],
-                fabric: "cotton",
-                images: [],
-                stock_s: 10,
-                stock_l: 10,
-                stock_xl: 0,
-                stock_2xl: 0,
-                stock_3xl: 0,
-                stock_4xl: 0,
-                stock_5xl: 0,
-                key: "clothing-joggers-1"
-            },
-            {
-                id: 2,
-                title: "black jogger with great fabric..(long lasting)",
-                card_img: "storage/jogger.jpeg",
-                sizes: "M L XL 2xl",
-                price: 750,
-                weight: 8.34,
-                stock: 40,
-                colors: ["black"],
-                fabric: "cotton",
-                images: [],
-                stock_s: 10,
-                stock_l: 10,
-                stock_xl: 0,
-                stock_2xl: 0,
-                stock_3xl: 0,
-                stock_4xl: 0,
-                stock_5xl: 0,
-                key: "clothing-joggers-2"
-            },
-            {
-                id: 3,
-                title: "black jogger with great fabric..(long lasting)",
-                card_img: "storage/jogger.jpeg",
-                sizes: "M L XL 2xl",
-                price: 750,
-                weight: 8.34,
-                stock: 40,
-                colors: ["black"],
-                fabric: "cotton",
-                images: [],
-                stock_s: 10,
-                stock_l: 10,
-                stock_xl: 0,
-                stock_2xl: 0,
-                stock_3xl: 0,
-                stock_4xl: 0,
-                stock_5xl: 0,
-                key: "clothing-joggers-3"
-            }
-            ],
+            joggers : [],
+            // joggers: [{
+            //     id: 1,
+            //     title: "black jogger with great fabric..(long lasting)",
+            //     card_img: "storage/jogger.jpeg",
+            //     sizes: "M L XL 2xl",
+            //     price: 750,
+            //     weight: 8.34,
+            //     stock: 40,
+            //     colors: ["black"],
+            //     fabric: "cotton",
+            //     images: [],
+            //     stock_s: 10,
+            //     stock_l: 10,
+            //     stock_xl: 0,
+            //     stock_2xl: 0,
+            //     stock_3xl: 0,
+            //     stock_4xl: 0,
+            //     stock_5xl: 0,
+            //     key: "clothing-joggers-1"
+            // },
+            // {
+            //     id: 2,
+            //     title: "black jogger with great fabric..(long lasting)",
+            //     card_img: "storage/jogger.jpeg",
+            //     sizes: "M L XL 2xl",
+            //     price: 750,
+            //     weight: 8.34,
+            //     stock: 40,
+            //     colors: ["black"],
+            //     fabric: "cotton",
+            //     images: [],
+            //     stock_s: 10,
+            //     stock_l: 10,
+            //     stock_xl: 0,
+            //     stock_2xl: 0,
+            //     stock_3xl: 0,
+            //     stock_4xl: 0,
+            //     stock_5xl: 0,
+            //     key: "clothing-joggers-2"
+            // },
+            // {
+            //     id: 3,
+            //     title: "black jogger with great fabric..(long lasting)",
+            //     card_img: "storage/jogger.jpeg",
+            //     sizes: "M L XL 2xl",
+            //     price: 750,
+            //     weight: 8.34,
+            //     stock: 40,
+            //     colors: ["black"],
+            //     fabric: "cotton",
+            //     images: [],
+            //     stock_s: 10,
+            //     stock_l: 10,
+            //     stock_xl: 0,
+            //     stock_2xl: 0,
+            //     stock_3xl: 0,
+            //     stock_4xl: 0,
+            //     stock_5xl: 0,
+            //     key: "clothing-joggers-3"
+            // }
+            // ],
             caperies: [],
             shorts: [],
             cart: [],
-            desktops: [{
-                id: 4,
-                title: "Dell companion 15 i5 6th gen 8gb ram 1tb Hdd + 512gb ssd",
-                stock: 40,
-                features: [],
-                card_img: "storage/jogger.jpeg",
-                price: 45000,
-                wieght: "5kg",
-                images: [],
-                key: "electronincs-desktops-4",
-                keywords: "",
-                colors: ["grey"] 
-            },
-            {
-                id: 5,
-                title: "Dell companion 15 i5 6th gen 8gb ram 1tb Hdd + 512gb ssd",
-                stock: 40,
-                features: [],
-                card_img: "storage/jogger.jpeg",
-                price: 45000,
-                wieght: "5kg",
-                images: [],
-                key: "electronincs-desktops-5",
-                keywords: "", 
-                colors: ["black"]
-            },
-        ],
-            all_products:[{
-                id: 1,
-                title: "black jogger with great fabric..(long lasting)",
-                t_name: "joggers",
-                stock: 40
-            },
-            {
-                id: 2,
-                title: "black jogger with great fabric..(long lasting)",
+            desktops: [],
+            all_products:[],
+            wishlist: [],
+        //     desktops: [{
+        //         id: 4,
+        //         title: "Dell companion 15 i5 6th gen 8gb ram 1tb Hdd + 512gb ssd",
+        //         stock: 40,
+        //         features: [],
+        //         card_img: "storage/jogger.jpeg",
+        //         price: 45000,
+        //         wieght: "5kg",
+        //         images: [],
+        //         key: "electronincs-desktops-4",
+        //         keywords: "",
+        //         colors: ["grey"] 
+        //     },
+        //     {
+        //         id: 5,
+        //         title: "Dell companion 15 i5 6th gen 8gb ram 1tb Hdd + 512gb ssd",
+        //         stock: 40,
+        //         features: [],
+        //         card_img: "storage/jogger.jpeg",
+        //         price: 45000,
+        //         wieght: "5kg",
+        //         images: [],
+        //         key: "electronincs-desktops-5",
+        //         keywords: "", 
+        //         colors: ["black"]
+        //     },
+        // ],
+        //     all_products:[{
+        //         id: 1,
+        //         title: "black jogger with great fabric..(long lasting)",
+        //         t_name: "joggers",
+        //         stock: 40
+        //     },
+        //     {
+        //         id: 2,
+        //         title: "black jogger with great fabric..(long lasting)",
                
-                stock: 40,
-                t_name: "joggers"
-            },
-            {
-                id: 3,
-                title: "black jogger with great fabric..(long lasting)",
-                stock: 40,
-                t_name: "joggers"
-            },
-            {
-                id: 4,
-                title: "Dell companion 15 i5 6th gen 8gb ram 1tb Hdd + 512gb ssd",
-                stock: 40,
-                t_name: "desktops"
-            },
-            {
-                id: 5,
-                title: "Dell companion 15 i5 6th gen 8gb ram 1tb Hdd + 512gb ssd",
-                stock: 40,
-                t_name: "desktops"
-            }
-            ],
+        //         stock: 40,
+        //         t_name: "joggers"
+        //     },
+        //     {
+        //         id: 3,
+        //         title: "black jogger with great fabric..(long lasting)",
+        //         stock: 40,
+        //         t_name: "joggers"
+        //     },
+        //     {
+        //         id: 4,
+        //         title: "Dell companion 15 i5 6th gen 8gb ram 1tb Hdd + 512gb ssd",
+        //         stock: 40,
+        //         t_name: "desktops"
+        //     },
+        //     {
+        //         id: 5,
+        //         title: "Dell companion 15 i5 6th gen 8gb ram 1tb Hdd + 512gb ssd",
+        //         stock: 40,
+        //         t_name: "desktops"
+        //     }
+        //     ],
         }
     },
     computed:{
@@ -300,11 +314,72 @@ const webstore = new Vue({
             
 			
 			return final;
-		}
+		},
+        items_in_wishlist(){
+            let arr = [];
+            this.all_products.forEach(product=>{
+                this.wishlist.forEach(el=>{
+                    if(product.id==el){
+                        let wish_item = this[product.t_name].find(pro=>pro.id==product.id);
+                        arr.push(wish_item);
+                    }
+                })
+            })
+            return arr;
+        }
     },
     components:{
         'navbar-component': navbar_component,
         "all-products-offcanvas-component": all_products_offcanvas_component
+    },
+    async created(){
+        if(localStorage.getItem("cb_cart")){
+            this.cart = JSON.parse(localStorage.getItem("cb_cart"));
+        }
+        
+        Vue.prototype.$current_user = {
+            id: -1,
+            name: 'guest',
+            number: "",
+            role: "guest",
+            cart: [],
+            wishlist: [],
+            orders: []
+        }
+        
+        if(localStorage.getItem("current_user")){
+            Vue.prototype.$current_user = JSON.parse(localStorage.getItem("current_user"));
+        }
+        if(this.$current_user.id!=-1){
+            await this.$http.post("api/get-wishlist",{id: this.$current_user.id}).then(res=>{
+                console.log("wish  ",res.body);
+                this.wishlist = JSON.parse(res.body.wishlist);
+            })
+        }
+        await this.$http.get('/api/get-all-products').then( res=>{
+            console.log(res.body);
+             this.all_products = res.body;
+        })
+        await this.$http.post('api/get-products',{t_name: "desktops"}).then( res=>{
+            console.log("desktops:-  ",res.body);
+            
+            res.body.forEach(desktop=>{
+                desktop.colors = JSON.parse(desktop.colors)
+                desktop.images = JSON.parse(desktop.images)
+                desktop.weight = Number(desktop.weight)
+            })
+             this.desktops = res.body
+        })
+       await this.$http.post('api/get-products',{t_name: "joggers"}).then( res=>{
+            console.log("joggers:-  ",res.body);
+            
+            res.body.forEach(jogger=>{
+                jogger.colors = JSON.parse(jogger.colors)
+                jogger.images = JSON.parse(jogger.images)
+                jogger.weight = Number(jogger.weight)
+            })
+             this.joggers = res.body
+        })
     }
 
 })

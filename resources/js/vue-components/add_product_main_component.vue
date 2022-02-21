@@ -1,5 +1,5 @@
 <template>
-     <div class="container" style="margin-top: 8.5em">
+     <div class="col-8" style="margin-top: 8.5em">
         <div class="row justify-content-center mb-5 mx-auto" style = "width: 100%">
           <div class="col-lg-6 px-0 d-flex justify-content-center bg-dark media-margin text-center">
             <form action="" method="post">
@@ -37,7 +37,8 @@
                     t_name: "",
                     stock: ""
                 },
-                t_names: ['shirts','round_necks','polos','sweat_shirts','kurtas','jeans','joggers','caperies','shorts'],
+                t_names: ['shirts','round_necks','polos','sweat_shirts','kurtas','jeans','joggers','caperies','shorts',"desktops"],
+                others: ["desktops"]
                 
 
             }
@@ -52,8 +53,20 @@
         
                     console.log(this.main_add_data.title)
                     localStorage.setItem('main_add_data',JSON.stringify(this.main_add_data));
-                    this.controls.show_apmc = 0;
+                    var chk = 0
+                    for(let i=0;i<this.others.length;i++){
+                      if(this.main_add_data.t_name==this.others[i]){
+                        this.controls.show_apmc = 0;
+                        this.controls.show_aopc = 1;
+                        chk = 1
+                        break;
+                      }
+
+                    }
+                    if(chk==0){
+                      this.controls.show_apmc = 0;
                     this.controls.show_acpc = 1;
+                    }
                     
                 }
             }

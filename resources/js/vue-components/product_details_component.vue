@@ -5,10 +5,10 @@
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                        <img :src="joggers[0].card_img" class="d-block w-100" alt="..." style="height: 450px; border: 1px solid grey;">
+                        <img :src="product.card_img" class="d-block w-100" alt="..." style="height: 450px; border: 1px solid grey;">
                         </div>
                         <div class="carousel-item" v-for="img in product.images" v-bind:key="img + '' + Math.random()">
-                        <img :src="joggers[0].card_img" class="d-block w-100" alt="...">
+                        <img :src="img" class="d-block w-100" alt="...">
                         </div>
                        
                     </div>
@@ -75,10 +75,12 @@ export default{
             t_name: "",
             id: "",
             product:{},
+            desktops:{},
+            joggers:{},
             sizes:["s","m","l","xl","2xl","3xl","4xl","5xl"]
         }
     },
-    props:["joggers","current_user","all_products","cart","can_add_to_cart","desktops"],
+    props:["current_user","all_products","cart","can_add_to_cart"],
     components:{
         "cart-controlls-component": cart_controlls_component
     },
@@ -114,6 +116,15 @@ export default{
                       this.cart.push(o);
 
                   }
+                  let update_cart={
+                      cart: JSON.stringify(this.cart),
+                      id: this.$current_user.id
+                  }
+                  if(this.$current_user.id!=-1){
+                      this.$http.post("/api/update-cart",update_cart).then(res=>{
+                          console.log(res.body);
+                      })
+                  }
                   localStorage.setItem('cb_cart',JSON.stringify(this.cart));
             }
             else{
@@ -146,6 +157,15 @@ export default{
                       this.cart.push(o);
 
                   }
+                  let update_cart={
+                      cart: JSON.stringify(this.cart),
+                      id: this.$current_user.id
+                  }
+                  if(this.$current_user.id!=-1){
+                      this.$http.post("/api/update-cart",update_cart).then(res=>{
+                          console.log(res.body);
+                      })
+                  }
                   localStorage.setItem('cb_cart',JSON.stringify(this.cart));
             } 
           }
@@ -156,12 +176,21 @@ export default{
 
         }
     },
-    created(){
+    async created(){
         let key = this.$route.params.key;
         let arr = key.split("-");
         this.category = arr[0]
         this.t_name = arr[1]
         this.id = arr[2]
+        console.log(this.desktops);
+        await this.$http.post('/api/get-products',{t_name: this.t_name}).then(res=>{
+            res.body.forEach(el=>{
+                el.colors = JSON.parse(el.colors)
+                el.images = JSON.parse(el.images)
+                el.weight = Number(el.weight)
+            })
+            this[this.t_name] = res.body
+        })
         this.product = this[this.t_name].find(element=>element.id==this.id);
     }
 }

@@ -1,7 +1,91 @@
 <template>
-    <div class="text-center">
-        <button class="btn btn-large btn-dark" v-on:click="sign_up">Sign up</button>
-    </div>
+     <div class="row justify-content-center mb-5" style="width:100%; margin: 0 auto;">
+      
+      
+        <div class="col-sm-6 p-3 bg-dark media-margin">
+          <form>
+            <div>
+              <h3 class="text-center text-peach mb-3">Sign Up</h3>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend bg-img-yellow">
+                    <div class="input-group-text bg-img-yellow font-weight-bolder"><i class="fas fa-user"></i></div>
+                </div>
+                  <input type="text" class="form-control required" v-model.trim="sign_up_data.name" placeholder="Your Full Name">
+                </div>
+
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend bg-img-yellow">
+                    <div class="input-group-text bg-img-yellow font-weight-bolder"><i class="fas fa-plus"></i></div>
+                </div>
+                <input type="text" class="form-control col-3 required" v-model.trim="sign_up_data.code" placeholder="code" >
+                <div class="input-group-prepend bg-img-yellow">
+                    <div class="input-group-text bg-img-yellow font-weight-bolder"><i class="fas fa-phone-alt"></i></div>
+                </div>
+                <input type="text" class="form-control col-9 required" v-model.trim="sign_up_data.number" placeholder="Mobile No.">
+            </div>
+
+            </div>
+             <!-- <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend bg-img-yellow">
+                    <div class="input-group-text bg-img-yellow font-weight-bolder"><i class="fas fa-plus"></i></div>
+                </div>
+                <input type="text" class="form-control col-3 required" v-model.trim="sign_up_data.wcode" placeholder="code" >
+                <div class="input-group-prepend bg-img-yellow">
+                    <div class="input-group-text bg-img-yellow font-weight-bolder"><i class="fas fa-phone-alt"></i></div>
+                </div>
+                <input type="text" class="form-control col-9 required" v-model.trim="sign_up_data.wnumber" placeholder="What's App No.">
+            </div> -->
+
+            <!-- </div> -->
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend bg-img-yellow">
+                    <div class="input-group-text bg-img-yellow font-weight-bolder"><i class="fas fa-envelope"></i></div>
+                </div>
+               <input type="email" class="form-control" v-model.trim="sign_up_data.email" aria-describedby="emailHelp" placeholder="Email" autocomplete>
+              </div>
+                 <small id="emailHelp" class="form-text  text-peach">We'll never share your data with anyone else.</small>
+
+            </div>
+            
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend bg-img-yellow">
+                    <div class="input-group-text bg-img-yellow font-weight-bolder"><i class="fas fa-lock"></i></div>
+                </div>
+                <input id="mainpass" type="password" class="form-control" v-model.trim="sign_up_data.password" placeholder="Password">
+                <div class="input-group-append bg-img-yellow" v-on:click="show_pass">
+                  <div class="input-group-text bg-img-yellow font-weight-bolder"><i class="fas fa-eye"></i></div>
+                </div>
+            </div>
+            </div>
+            
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend bg-img-yellow">
+                    <div class="input-group-text bg-img-yellow font-weight-bolder"><i class="fas fa-lock"></i></div>
+                </div>
+                <input id="conp" type="password" class="form-control" v-model.trim="sign_up_data.con_pass" placeholder="Confirm Password">
+                <div class="input-group-append bg-img-yellow" v-on:click="show_pass_con">
+                  <div class="input-group-text bg-img-yellow font-weight-bolder"><i class="fas fa-eye"></i></div>
+                </div>
+            </div>
+            </div>
+            <div class="button-parent">
+            <button type="button" class="btn btn-md orange button mt-2" v-on:click="sign_up">Create Account</button>
+            </div>
+
+    <div><p class="text-center text-peach pt-2">Already have an account ? <router-link class="text-info hover-white" to="/login">login</router-link></p></div>
+          </form>
+        </div>
+      </div>
+      
 </template>
 
 <script>
@@ -14,13 +98,42 @@
                     email: "",
                     password: "",
                     number: "",
-                    role: "user"
-                }
+                    code: "",
+                    role: "user",
+                    cart: "",
+                },
+                mp_clicked:0,
+                cp_clicked:0
             }
         },
+        props:["cart"],
         methods: {
+           show_pass_con(){
+            let inp =  document.getElementById('conp');
+            if(this.cp_clicked == 0){
+              this.cp_clicked=1;
+              inp.type = 'text';
+            }
+            else if(this.cp_clicked>0){
+              this.cp_clicked=0;
+              inp.type = 'password'
+            }
+          },
+          show_pass(e){
+            let inp =  document.getElementById('mainpass');
+            if(this.mp_clicked == 0){
+              this.mp_clicked=1;
+              inp.type = 'text';
+            }
+            else if(this.mp_clicked>0){
+              this.mp_clicked=0;
+              inp.type = 'password'
+            }
+          },
             sign_up(){
                 console.log("sign up data --- ",this.sign_up_data);
+                this.sign_up_data.cart = JSON.stringify(this.cart);
+                this.sign_up_data.number = this.sign_up_data.code + this.sign_up_data.number
                 this.$http.post("/api/add-user",this.sign_up_data).then(res=>{
                     console.log(res.body);
                 })

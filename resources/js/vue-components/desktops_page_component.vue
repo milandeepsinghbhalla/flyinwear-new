@@ -3,7 +3,7 @@
         <h3 class="text-center mb-4">All desktops...!!</h3>
         <div class="row justify-content-center">
             
-            <product-card-component v-for="desktop in desktops" v-bind:key="desktop.key" v-bind:product="desktop"></product-card-component>
+            <product-card-component v-for="desktop in desktops" :wishlist="wishlist" v-bind:key="desktop.key" v-bind:product="desktop"></product-card-component>
         </div>
     </div>
 </template>
@@ -14,6 +14,6 @@ export default{
     components:{
         'product-card-component': product_card_component
     },
-    props: ["desktops"]
+    props: ["desktops","wishlist"]
 }
 </script>

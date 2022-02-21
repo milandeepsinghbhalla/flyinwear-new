@@ -15,10 +15,10 @@
                             <input type="number" v-model="cont_add_p.price" class="form-control" id="price" placeholder="price">
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="fabric">Fabric</label>
                             <input type="text" v-model="cont_add_p.fabric" class="form-control" id="fabric" placeholder="fabric">
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label for="bid">bid</label>
@@ -32,8 +32,12 @@
                             <label for="bid">color</label>
                             <input type="text" @change="color_chng" class="form-control" id="color" placeholder="add color">
                         </div>
-                        <br><h3 class="mt-4">select sizes stock:-</h3><br><br>
-                          <div class="form-group">
+                        <br><h3 class="mt-4">enter features:-</h3><br><br>
+                            <div class="form-group" v-for="(item, prop) in cont_add_p.features" :key="prop">
+                              <label class="text-peach" >{{prop}}:-</label>
+                              <input type="text" class="form-control" v-model="cont_add_p.features[prop]" aria-describedby="pstock" :placeholder="cont_add_p.features.prop">
+                          </div>
+                          <!-- <div class="form-group">
                               <label class="text-peach" >stock_s</label>
                               <input type="number" class="form-control" v-model="cont_add_p.stock_s" aria-describedby="pstock" :placeholder="cont_add_p.stock_s">
                           </div>
@@ -63,7 +67,7 @@
                         <div class="form-group">
                             <label class="text-peach" >stock_5xl</label>
                             <input type="number" class="form-control" v-model="cont_add_p.stock_5xl" aria-describedby="pstock" :placeholder="cont_add_p.stock_5xl">
-                        </div>
+                        </div> -->
               
                         <!-- <div class="mt-4">
                             <label foabel>
@@ -93,15 +97,8 @@
         price: '',
         fabric: '',
         colors: [],
-        bid:"same",
-        stock_s: 0,
-        stock_l: 0,
-        stock_m: 0,
-        stock_xl: 0,
-        stock_2xl: 0,
-        stock_3xl: 0,
-        stock_4xl: 0,
-        stock_5xl: 0,
+        bid:"",
+        features:{},
         weight: 0.8
       },
       img_no: 1,
@@ -180,7 +177,7 @@
   
     upload(){
         
-        if(this.cont_add_p.price!=''&& this.cont_add_p.fabric!='' && this.cont_add_p && (this.cont_add_p.colors.length!==0)  ){
+        if(this.cont_add_p.price!='' && (this.cont_add_p.colors.length!==0)  ){
           let i = 0;
           for (var pair of this.form_data.entries()) {
             i++
@@ -195,23 +192,16 @@
             this.form_data.set('weight',this.cont_add_p.weight);
 
             this.form_data.set('colors',JSON.stringify(this.cont_add_p.colors));
-            this.form_data.set('stock_s',this.cont_add_p.stock_s);
-            this.form_data.set('stock_m',this.cont_add_p.stock_m);
-            this.form_data.set('stock_l',this.cont_add_p.stock_l);
-            this.form_data.set('stock_xl',this.cont_add_p.stock_xl);
-            this.form_data.set('stock_2xl',this.cont_add_p.stock_2xl);
-            this.form_data.set('stock_3xl',this.cont_add_p.stock_3xl);
-            this.form_data.set('stock_4xl',this.cont_add_p.stock_4xl);
-            this.form_data.set('stock_5xl',this.cont_add_p.stock_5xl);
+            this.form_data.set('features',JSON.stringify(this.cont_add_p.features));
+
             this.form_data.set('img_no',this.img_no);
-            this.form_data.set('fabric',this.cont_add_p.fabric);
 
 
 
             for (var pair of this.form_data.entries()) {
               console.log(pair[0]+ ', ' + pair[1]); 
             }
-            this.$http.post("/api/add-product-clothing",this.form_data).then(res=>{
+            this.$http.post("/api/add-product-other",this.form_data).then(res=>{
               console.log(res.body);
               if(res.body.status==1){
                 swal("product added"," ","success");
@@ -239,11 +229,25 @@
     }
   },
   created(){
+    
     this.EventBus.$on('imgnoupdated',img_no=>{this.img_no=img_no});
     this.EventBus.$on('form_data_updated',form_data=>{this.form_data=form_data});
     console.log(this.form_data);
     if(localStorage.getItem('main_add_data')){
       this.main_add_data = JSON.parse(localStorage.getItem('main_add_data'));
+    }
+    switch(this.main_add_data.t_name){
+        case "desktops":
+            this.cont_add_p.features={
+                processor: "",
+                lcd_size: "",
+                ram: "",
+                graphic_card: "",
+                company: "",
+                product_name: "",
+                contains: ""
+            }
+            break;
     }
 
   }

@@ -1,9 +1,9 @@
 <template>
     <div class="container" style="margin-top:7.5em;">
-        <h3 class="text-center mb-4">All joggers...!!</h3>
+        <h3 class="text-center mb-4">Wishlist items...!!</h3>
         <div class="row justify-content-center">
             
-            <product-card-component v-for="jogger in joggers" :wishlist="wishlist" v-bind:key="jogger.key" v-bind:product="jogger"></product-card-component>
+            <product-card-component v-for="item in items_in_wishlist" :wishlist="wishlist" v-bind:key="item.key" v-bind:product="item"></product-card-component>
         </div>
     </div>
 </template>
@@ -14,6 +14,6 @@ export default{
     components:{
         'product-card-component': product_card_component
     },
-    props: ["joggers","wishlist"]
+    props: ["items_in_wishlist","wishlist"]
 }
 </script>

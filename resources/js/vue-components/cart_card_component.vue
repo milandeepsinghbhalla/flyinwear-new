@@ -76,6 +76,15 @@ export default{
                       this.cart.push(o);
 
                   }
+                  let update_cart={
+                      cart: JSON.stringify(this.cart),
+                      id: this.$current_user.id
+                  }
+                  if(this.$current_user.id!=-1){
+                      this.$http.post("/api/update-cart",update_cart).then(res=>{
+                          console.log(res.body);
+                      })
+                  }
                   localStorage.setItem('cb_cart',JSON.stringify(this.cart));
             }
             else{
@@ -108,6 +117,15 @@ export default{
                       this.cart.push(o);
 
                   }
+                  let update_cart={
+                      cart: JSON.stringify(this.cart),
+                      id: this.$current_user.id
+                  }
+                  if(this.$current_user.id!=-1){
+                      this.$http.post("/api/update-cart",update_cart).then(res=>{
+                          console.log(res.body);
+                      })
+                  }
                   localStorage.setItem('cb_cart',JSON.stringify(this.cart));
             } 
           }
@@ -120,6 +138,16 @@ export default{
             let i;
             for(i=0;i<pro.no_in_cart;i++)
                 this.cart.splice(this.cart.indexOf(this.cart.find(element=>element.cart_id==pro_id)),1);
+               
+               let update_cart={
+                      cart: JSON.stringify(this.cart),
+                      id: this.$current_user.id
+                  }
+                  if(this.$current_user.id!=-1){
+                      this.$http.post("/api/update-cart",update_cart).then(res=>{
+                          console.log(res.body);
+                      })
+                  }
                localStorage.setItem('cb_cart',JSON.stringify(this.cart));
         },
         remove_one(pro_id){
@@ -131,6 +159,16 @@ export default{
             //      return
             // }
             this.cart.splice(this.cart.indexOf(this.cart.find(element=>element.cart_id==pro_id)),1);
+             
+             let update_cart={
+                      cart: JSON.stringify(this.cart),
+                      id: this.$current_user.id
+                  }
+                  if(this.$current_user.id!=-1){
+                      this.$http.post("/api/update-cart",update_cart).then(res=>{
+                          console.log(res.body);
+                      })
+                  }
              localStorage.setItem('cb_cart',JSON.stringify(this.cart));
         },
         details_clicked(key){
