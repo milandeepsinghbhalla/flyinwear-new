@@ -284,9 +284,13 @@ const webstore = new Vue({
                 let pro = this.cart.find(element=>element.cart_id==prop);
                 console.log("pro - ",pro)
                 o.id = pro.id;
-                if(pro.size)
+                let selected_size = null
+                if(pro.size){
                     o.size = pro.size;
+                    selected_size = "stock_" + pro.size;
+                }
                 o.color = pro.color;
+                 
                 console.log(pro.id);
                 console.log(this.all_products);
                 let pro_main = this.all_products.find(element=>element.id==pro.id);
@@ -301,6 +305,8 @@ const webstore = new Vue({
                           o.price= the_product.price
                           o.weight= the_product.weight
                           o.stock= the_product.stock
+                          if(selected_size)
+                          o[selected_size] = the_product[selected_size]
                           o.colors= the_product.colors
                           if(the_product.fabric)
                           o.fabric= the_product.fabric

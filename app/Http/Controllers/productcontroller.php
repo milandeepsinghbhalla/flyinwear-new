@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\all_product;
+use \stdClass;
 
 class productcontroller extends Controller
 {
@@ -128,5 +129,47 @@ class productcontroller extends Controller
     }
     public function delete_product(Request $req){
         
+    }
+    public function get_stock(Request $req){
+        $id = (int) $req->id;
+        $rs1 = DB::table("all_products")->where('id',"=",$id)->first();
+        $rs2 = DB::table($rs1->t_name)->where('id',"=",$id)->first();
+        $current_stock = new stdClass();
+        $current_stock->stock = $rs2->stock;
+        if(property_exists($rs2, 'stock_s')){
+            $current_stock->stock_s = $rs2->stock_s;
+            $current_stock->stock_m = $rs2->stock_m;
+            $current_stock->stock_l = $rs2->stock_l;
+            $current_stock->stock_xl = $rs2->stock_xl;
+            $current_stock->stock_2xl = $rs2->stock_2xl;
+            $current_stock->stock_3xl = $rs2->stock_3xl;
+            $current_stock->stock_4xl = $rs2->stock_4xl;
+            $current_stock->stock_5xl = $rs2->stock_5xl;
+        }
+        return ["current_stock"=> $current_stock];
+    }
+    public function edit_stock(Request $req){
+        $id = (int) $req->id;
+        $rs1 = DB::table("all_products")->where('id',"=",$id)->first();
+        $stocks = (object) $req->stocks;
+      
+        $rs1->stock = $stocks->stock;
+        $rs1 = (array) $rs1;
+        DB::table("all_products")->where('id',"=",$id)->update($rs1);
+        $rs2 = DB::table($rs1["t_name"])->where('id',"=",$id)->first();
+        $rs2->stock = $stocks->stock;
+        if(property_exists($stocks,'stock_s')){
+            $rs2->stock_s = $stocks->stock_s;
+            $rs2->stock_m = $stocks->stock_m;
+            $rs2->stock_l = $stocks->stock_l;
+            $rs2->stock_xl = $stocks->stock_xl;
+            $rs2->stock_2xl = $stocks->stock_2xl;
+            $rs2->stock_3xl = $stocks->stock_3xl;
+            $rs2->stock_4xl = $stocks->stock_4xl;
+            $rs2->stock_5xl = $stocks->stock_5xl;
+        }
+        $rs2 = (array) $rs2;
+        DB::table($rs1["t_name"])->where('id',"=",$id)->update($rs2);
+        return ["msg"=> "edited successfully"];
     }
 }

@@ -105,7 +105,7 @@
             <router-view name="desktops-page-component" v-bind:desktops="desktops" :wishlist="wishlist"></router-view>
             <router-view name="wishlist-page-component" v-bind:items_in_wishlist="items_in_wishlist" :wishlist="wishlist"></router-view>
 
-            <router-view name="product_details_component" v-bind:joggers="joggers" v-bind:desktops="desktops" :current_user="current_user" :all_products="all_products" :cart="cart" :can_add_to_cart="can_add_to_cart"></router-view>
+            <router-view name="product_details_component" v-bind:joggers="joggers" v-bind:desktops="desktops" :current_user="current_user" :all_products="all_products" :cart="cart" :can_add_to_cart="can_add_to_cart" :items_in_cart="items_in_cart"></router-view>
             <router-view name="cart-page-component" v-bind:can_add_to_cart="can_add_to_cart"
             v-bind:cart="cart"
             v-bind:items_in_cart="items_in_cart"

@@ -33,6 +33,10 @@ Route::post('remove-vendor',[user_controller::class,'remove_vendor']);
 Route::post('add-product-clothing',[productcontroller::class,'add_product_clothing']);
 Route::post('add-product-other',[productcontroller::class,'add_product_other']);
 Route::post('get-products',[productcontroller::class,'get_products']);
+Route::post('get-stock',[productcontroller::class,'get_stock']);
+Route::post('edit-stock',[productcontroller::class,'edit_stock']);
+
+
 Route::get('get-all-products',[productcontroller::class,'get_all_products']);
 
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-12 bg-dark crd-new-hrz">
+    <div class="col-lg-12 bg-dark crd-new-hrz mt-4">
         <div class="row">
             <div class="col-5 col-md-4 p-0 mx-0">
                 <img v-bind:src="product.card_img" class="img-fill-new cart-height">
@@ -10,7 +10,7 @@
                 
                 <h3 class="in-mob-text">{{product.title}}</h3>
                 <h4 class="in-mob-text price">&#8377;{{product.price}}</h4>
-                <h3 class="in-mob-text-sizes"> <span v-if="category=='clothing'">size: {{product.size}}</span> color : {{product.color}}</h3>
+                <h3 class="in-mob-text-sizes"> <span v-if="category=='clothing'">size: {{product.size}}</span><br> color : {{product.color}}</h3>
                 <h3 class="in-mob-text-sizes">&#8377;{{(product.price*product.no_in_cart).toFixed(2)}} for {{product.no_in_cart}}</h3>
 
                 <span class="in-mob-text card-footer-horizontal">
@@ -21,7 +21,7 @@
                                             <button class="btn btn-danger btn-sm m-0 in-mob-text-card mob-button" v-on:click="remove_from_cart(product.cart_id)"><i class="fas fa-trash-alt in-mob-text-card"></i></button>
                                             <button class="btn  btn-light btn-sm m-0 in-mob-text-card mob-button" v-on:click="remove_one(product.cart_id)" v-show="product.no_in_cart>1">-</button>
                                             <button class="btn btn-light btn-sm in-mob-text-card mob-button">{{product.no_in_cart}}</button>
-                                            <span v-show="can_add_to_cart[(product.id)-1]">
+                                            <span v-show="can_add">
                                                 <button class="btn  btn-light btn-sm m-0 in-mob-text-card mob-button" v-on:click="add_to_cart(product.id)" >+</button>
                                             </span>
                                           
@@ -48,6 +48,24 @@ export default{
             category: "",
             t_name: "",
             id: "",
+        }
+    },
+    computed:{
+        can_add(){
+            if(this.product.size){
+                let selected_size = "stock_"+ this.product.size;
+                if(this.product[selected_size]>this.product.no_in_cart)
+                    return true;
+                else
+                    return false;
+            }
+            else{
+                if(this.product.stock>this.product.no_in_cart)
+                    return true;
+                else
+                    return false;
+            }
+
         }
     },
      props: ['product','items_in_cart','can_add_to_cart','cart','all_products','current_user'],
