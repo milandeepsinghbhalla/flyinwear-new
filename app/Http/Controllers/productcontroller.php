@@ -98,8 +98,13 @@ class productcontroller extends Controller
                 'weight'=> $req->weight,
                 'colors'=> json_encode(json_decode($req->colors)),
                 'images'=> json_encode($other_imgs_links),
-                'bid'=> $req->bid,
+                'vid'=> $req->vid,
                 'features'=> $req->features,
+                'description'=> $req->description,
+                'height'=> $req->height,
+                'breadth'=>$req->breadth,
+                'discount'=>$req->discount,
+                'depth'=> $req->depth,
                 'key'=> $key,
                 'keywords'=> $req->keywords
             ]);

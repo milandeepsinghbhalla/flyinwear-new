@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user_controller;
 use App\Http\Controllers\productcontroller;
+use App\Http\Controllers\shiprocketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,5 +39,10 @@ Route::post('edit-stock',[productcontroller::class,'edit_stock']);
 
 
 Route::get('get-all-products',[productcontroller::class,'get_all_products']);
+
+Route::get('get-tocken-ship',[shiprocketController::class,'get_tocken_ship']);
+
+Route::get('get-ship-tocken',[shiprocketController::class,'get_tocken']);
+Route::post('add-ship-tocken',[shiprocketController::class,'add_tocken']);
 
 

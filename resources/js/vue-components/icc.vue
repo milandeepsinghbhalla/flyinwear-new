@@ -3,10 +3,10 @@
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                        <img :src="card_img" class="d-block w-100" alt="..." style="height: 450px; border: 1px solid grey;">
+                        <img :src="card_img" class="d-block w-100 circle-img shadow-lg" alt="..." style="height: 450px; border: 1px solid grey;">
                         </div>
-                        <div class="carousel-item" v-for="img in images" v-bind:key="img + '' + Math.random()">
-                        <img :src="img" class="d-block w-100" alt="...">
+                        <div class="carousel-item "  v-for="img in images" v-bind:key="img + '' + Math.random()">
+                        <img :src="img" class="d-block w-100 circle-img shadow-lg" style="height: 450px; border: 1px solid grey;" alt="...">
                         </div>
                        
                     </div>

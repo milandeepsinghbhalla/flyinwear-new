@@ -1,7 +1,7 @@
 <template>
-    <div class="col-8">
+    <div class="col-12">
         <div class="row justify-content-center mb-5 mx-auto" style = "width: 100%">
-            <div class="col-8">
+            <div class="col-10">
                         <img :src="img_link.link" style="hieght: 200px;width: 250px;margin: 2em;">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="customFile" @change="main_img_changed">
@@ -20,10 +20,7 @@
                             <input type="text" v-model="cont_add_p.fabric" class="form-control" id="fabric" placeholder="fabric">
                         </div>
 
-                        <div class="form-group">
-                            <label for="bid">bid</label>
-                            <input type="text" v-model="cont_add_p.bid" class="form-control" id="bid" placeholder="back id">
-                        </div>
+                        
                         <button class="btn btn-dark text-left" @click="add_other_img_clicked()">add other images</button>
                         <add-other-images :img_no="img_no" :cont_add_p="cont_add_p" v-if="add_other==1" :EventBus="EventBus" :form_data="form_data"></add-other-images>
                         

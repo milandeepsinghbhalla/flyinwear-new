@@ -8,7 +8,7 @@
         
             <div class="col-7 col-md-8  pt-3 pt-lg-4 mx-0">
                 
-                <h3 class="in-mob-text">{{product.title}}</h3>
+                <h3 class="in-mob-text">{{product.title.substring(0,50)+'...'}}</h3>
                 <h4 class="in-mob-text price">&#8377;{{product.price}}</h4>
                 <h3 class="in-mob-text-sizes"> <span v-if="category=='clothing'">size: {{product.size}}</span><br> color : {{product.color}}</h3>
                 <h3 class="in-mob-text-sizes">&#8377;{{(product.price*product.no_in_cart).toFixed(2)}} for {{product.no_in_cart}}</h3>
@@ -68,7 +68,7 @@ export default{
 
         }
     },
-     props: ['product','items_in_cart','can_add_to_cart','cart','all_products','current_user'],
+     props: ['product','items_in_cart','can_add_to_cart','cart','all_products','current_user',"cart_total"],
      methods: {
           add_to_cart: function(bat_id){
         if(this.category=="clothing"){

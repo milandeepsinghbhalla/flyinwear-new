@@ -1,0 +1,30 @@
+.equal-img{
+    height: 250px;
+  }
+  .equal-card{
+   height: 69vh;
+  }
+  .green-body{
+    background-color: #52b788;
+  }
+  .font-lg{
+    font-size:1.5em;
+    font-weight: bold;
+    color: #52b788;
+  }
+  .font-small{
+    font-size:1em;
+    text-decoration: line-through;
+    color: #d00000;
+  }
+  .right{
+    position:relative;
+    right: 0px;
+    display: inline-block;
+  }
+  .wishicon{
+    margin-top: 0.2em;
+    font-size: 1.3em;
+    margin-left: 0.8em;
+  }
+  

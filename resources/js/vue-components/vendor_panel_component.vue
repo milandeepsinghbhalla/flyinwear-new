@@ -1,14 +1,21 @@
 <template>
-    <div class="col-2 pr-0 dash-list mt-3" style="border-right:5px solid  #7e7e7e;">
-                    <ul class="dash-link pr-0 pl-3">
-                        <li class="dash-buttons btn btn-dark col-12" v-on:click="controls.show_apmc=1">Add products</li>
-                        <li class="dash-buttons btn btn-dark col-12">Delete products</li>
-                        <li class="dash-buttons btn btn-dark col-12" v-on:click="show_ed">edit products</li>
-                        <li class="dash-buttons btn btn-dark col-12">Orders</li>
-                        <li class="dash-buttons btn btn-dark col-12">Cancelled</li>
-
-                    </ul>
-
+    <div class="bg-my-dark col-2">
+    <div class="d-none d-lg-block" style="min-height:100vh">
+       <ul style="list-style:none;" class="mt-3 sticky-top">
+           <li class="text-light mb-2 sidebar-font" v-on:click="show_product_pannel">Products</li>
+           <li class="text-light mb-2 sidebar-font">Users</li>
+            <li class="text-light mb-2 sidebar-font">Orders</li>
+       </ul>
+    </div>
+            <i class="fas fa-cogs text-dark ml-4 mt-2 d-block d-lg-none" v-on:click="openside()"></i>
+            <div id="sidebar-vendor" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" style="position:static;margin-top:5px;margin-left:80%" v-on:click="closeside()">&times;</a>
+                <ul style="list-style:none;" class="sticky-top">
+                    <li class="text-light mb-2 sidebar-font" v-on:click="closeside();show_product_pannel();">Products</li>
+                    <li class="text-light mb-2 sidebar-font">Users</li>
+                        <li class="text-light mb-2 sidebar-font">Orders</li>
+                </ul>
+            </div>
     </div>
 </template>
 
@@ -16,9 +23,18 @@
     export default{
         props: ["controls"],
         methods: {
-            show_ed(){
-                this.controls.show_edit = 1;
-                this.show_apmc = 0;
+            show_product_pannel(){
+                this.controls.show_product_pannel = 1;
+                this.controls.show_others = 1;
+                this.controls.add_product = 0;
+                this.controls.show_aopc = 0;
+                this.controls.show_acpc = 0;
+            },
+            openside(){
+                 document.getElementById("sidebar-vendor").style.width = "305px";
+            },
+            closeside(){
+                document.getElementById("sidebar-vendor").style.width = "0";
             }
         }
     }

@@ -35,7 +35,7 @@ body{
         padding-right: 0.3em !important;
        }
        .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus{
-            color: #ffbd59;
+            color: #c77dff;
     }
     .cart-ul-laptop{
        display: none;
@@ -56,10 +56,10 @@ body{
        font-size: 1.1em;
    }
    .navbar-dark .navbar-nav .nav-link{
-       color: #ffbd59;
+       color: #c77dff;
    }
    .navbar-dark .navbar-nav .nav-link:focus{
-    color: #ffbd59;
+    color: #c77dff;
 }
 .sup-no{
 font-size: 1em;
@@ -67,7 +67,7 @@ font-size: 1em;
 /*product-card-css-below*/
 /*.bg-grey{
     background-color: #d3d3d3;
-    background-color: #ffbd59;
+    background-color: #c77dff;
 }
 */		.crd-new-hrz{
    border-radius: 1.5em;
@@ -100,11 +100,11 @@ font-weight: bold;
 color: black;
 }
 .in-mob-text{
-    color: #ffbd59;
+    color: #c77dff;
 }
 .orange{
-background-color: #ffbd59;
-border-color: #ffbd59;
+background-color: #c77dff;
+border-color: #c77dff;
 color: black;
 }
 button.orange:focus{
@@ -123,11 +123,11 @@ button.orange:focus{
     .in-mob-text{
         font-size: 0.8em;
         margin-bottom: 0.13em;
-        color: #ffbd59;
+        color: #c77dff;
     }
     .in-mob-text-sizes{
            font-size: 0.7em !important;
-           color: #ffbd59;
+           color: #c77dff;
            margin-top: 0.2em;
        }
     .in-mob-text-card{
@@ -136,7 +136,7 @@ button.orange:focus{
    }
    .in-mob-text-sizes{
        font-size: 1em;
-       color: #ffbd59;
+       color: #c77dff;
        margin-bottom: 0.2em;
    }
    .modal-img{
@@ -236,10 +236,10 @@ button.orange:focus{
     }
 /* css below this is for confirm-order page */
 .back-logo{
-    color:  #FFBD59 !important;
+    color:  #c77dff !important;
 }
 .bg-order-card-body{
-    background-color: #FFBD59;
+    background-color: #c77dff;
 }
 .order-total{
     border-top: 1px solid black;
@@ -247,7 +247,7 @@ button.orange:focus{
     margin-right: 1em;
 }
 .orders-border{
-    border: 5px solid #FFBD59 ;
+    border: 5px solid #c77dff ;
 }
 
 /* css below for home page*/

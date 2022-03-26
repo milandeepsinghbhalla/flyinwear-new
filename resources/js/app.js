@@ -18,6 +18,7 @@ import sign_up_page_component from "./vue-components/sign_up_page_component.vue"
 import admin_page_component from "./vue-components/admin_page_component.vue"
 import vendor_page_component from "./vue-components/vendor_page_component.vue"
 import login_page_component from "./vue-components/login_page_component.vue"
+import checkout_page_component from "./vue-components/checkout_page_component.vue"
 
 import { forEach } from "lodash";
 
@@ -83,6 +84,13 @@ const router = new VueRouter({
             path:'/wishlist',
             components:{
                 "wishlist-page-component": wishlist_page_component
+            }
+            
+        },
+        {
+            path:'/checkout/:sub-route',
+            components:{
+                "checkout-page-component": checkout_page_component
             }
             
         },
@@ -332,6 +340,20 @@ const webstore = new Vue({
                 })
             })
             return arr;
+        },
+        cart_total(){
+            let total = 0;
+            this.items_in_cart.forEach(item=>{
+                total += (item.no_in_cart * item.price);
+            })
+            return total;
+        },
+        cart_weight(){
+            let weight = 0;
+            this.items_in_cart.forEach(item=>{
+                weight += (item.weight * item.no_in_cart)
+            })
+            return weight;
         }
     },
     components:{
@@ -373,6 +395,7 @@ const webstore = new Vue({
                 desktop.colors = JSON.parse(desktop.colors)
                 desktop.images = JSON.parse(desktop.images)
                 desktop.weight = Number(desktop.weight)
+                desktop.actual_price = desktop.price - (desktop.price*desktop.discount)/100
             })
              this.desktops = res.body
         })

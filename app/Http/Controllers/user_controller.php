@@ -149,7 +149,7 @@ class user_controller extends Controller
                         for($x=0;$x<count($current_cart);$x++){
                             if($current_cart[$x]->cart_id==$req_cart[$i]->cart_id){
                                 $chk = 1;
-                                return ["msg" =>"chked"];
+                                // return ["msg" =>"chked"];
                                 break;
                             }
 

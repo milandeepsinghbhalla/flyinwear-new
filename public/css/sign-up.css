@@ -10,10 +10,10 @@
 }
 .bg-img-yellow{
     /*background-color: #f4c723;*/
-    background-color: #ffbd59;
+    background-color: #c77dff;
 }
 .text-peach{
-    color: #ffbd59;
+    color: #c77dff;
 }
 .button{
     margin: 0 auto;
@@ -23,7 +23,7 @@
 }
 input.form-control:focus{
 
-    border-color:  #ffbd59;
+    border-color:  #c77dff;
     box-shadow: 0 0 0 0.2rem rgb(255 189 89 / 50%);
 }
 @media screen and (max-width: 650px){

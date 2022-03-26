@@ -2,13 +2,15 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Flyingwear | Buy anything you want...!!</title>
+        <title>CivicStore | Click and Aquire...!!</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/16139588c8.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="css/sidenav.css">
         <link rel="stylesheet" href="css/old.css">
         <link rel="stylesheet" href="css/dashboard.css">
         <link rel="stylesheet" href="css/sign-up.css">
+        <link rel="stylesheet" href="css/sidebar.css">
+        <link rel="stylesheet" href="css/product_card.css">
 
         <style>
             /*css below for navbar...*/
@@ -52,7 +54,7 @@
                         padding-right: 0.3em !important;
                     }
                     .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus{
-                            color: #ffbd59;
+                            color: #c77dff;
                     }
                     .cart-ul-laptop{
                     display: none;
@@ -73,10 +75,10 @@
                     font-size: 1.1em;
                 }
                 .navbar-dark .navbar-nav .nav-link{
-                    color: #ffbd59;
+                    color: #c77dff;
                 }
                 .navbar-dark .navbar-nav .nav-link:focus{
-                    color: #ffbd59;
+                    color: #c77dff;
                 }
                 .sup-no{
                 font-size: 1em;
@@ -92,21 +94,42 @@
                 }
                 /* product detail css below*/
                 .in-mob-text{
-			color: #ffbd59;
+			color: #c77dff;
 		}
+        .sidebar-font{
+            font-size: 1.5em;
+        }
+        .circle-img{
+            border-radius: 50%;
+        }
+        .bg-creame{
+            background-color: #fde4cf;
+        }
+        @media screen and (min-width: 991px){
+        .bg-my-dark{
+            background-color: #c77dff;
+        }
+        }
+        .bg-mob-dark{
+            background-color: #c77dff;
+
+        }
+        .text-purple{
+            color: #c77dff;
+        }
                 
         </style>
     </head>
-    <body>
+    <body style="background-color: #f9ecfb;">
         <div id="app">
             <!-- <all-products-offcanvas-component></all-products-offcanvas-component> -->
             <navbar-component v-bind:cart="cart" v-bind:current_user="current_user" :wishlist="wishlist"></navbar-component>
-            <router-view name="joggers-page-component" v-bind:joggers="joggers" :wishlist="wishlist"></router-view>
-            <router-view name="desktops-page-component" v-bind:desktops="desktops" :wishlist="wishlist"></router-view>
+            <router-view name="joggers-page-component" :all_products="all_products" :items_in_cart="items_in_cart" :cart="cart" v-bind:joggers="joggers" :wishlist="wishlist"></router-view>
+            <router-view name="desktops-page-component" :all_products="all_products" :items_in_cart="items_in_cart" :cart="cart" v-bind:desktops="desktops" :wishlist="wishlist"></router-view>
             <router-view name="wishlist-page-component" v-bind:items_in_wishlist="items_in_wishlist" :wishlist="wishlist"></router-view>
 
             <router-view name="product_details_component" v-bind:joggers="joggers" v-bind:desktops="desktops" :current_user="current_user" :all_products="all_products" :cart="cart" :can_add_to_cart="can_add_to_cart" :items_in_cart="items_in_cart"></router-view>
-            <router-view name="cart-page-component" v-bind:can_add_to_cart="can_add_to_cart"
+            <router-view name="cart-page-component" :cart_total="cart_total" v-bind:can_add_to_cart="can_add_to_cart"
             v-bind:cart="cart"
             v-bind:items_in_cart="items_in_cart"
             v-bind:all_products="all_products"
@@ -115,6 +138,7 @@
             <router-view name="admin-page-component" v-if="(this.$current_user.role=='admin' || this.$current_user.role=='admin_vendor')"></router-view>
             <router-view name="vendor-page-component" v-if="(this.$current_user.role=='vendor' || this.$current_user.role=='admin_vendor')"></router-view>
             <router-view name="login-page-component" :cart="cart"></router-view>
+            <router-view name="checkout-page-component" :cart="cart"></router-view>
 
 
         </div>

@@ -4,7 +4,7 @@
             <icc :card_img="product.card_img" :images="product.images"></icc>
             <div class="col-lg-6 ">
                 <div class="row " style="margin-right: 1rem;">
-                    <div class="card col-12 p-0 text-dark bg-light lg-margin-card">
+                    <div class="card col-12 p-0 text-dark bg-creame lg-margin-card">
                         <div class="card-header display-5 text-light bg-dark">
                             {{product.title}}
                         </div>
@@ -16,7 +16,7 @@
                                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Select Size : </label>
                                 <select v-model="product.size" @change="change"  class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
                                         <option disabled value="">Size</option>
-                                        <option v-for="size in sizes" :key="size" v-if="check(product,size)">{{size}}</option>
+                                        <option v-for="size in sizes" :key="size" v-show="check(product,size)">{{size}}</option>
                                 </select>
                             </span>
 
@@ -38,13 +38,26 @@
                     </div>
                     
                 </div>
-                    </div>
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-11 bg-creame text-dark p-4 text-center circle-img shadow-lg m-4">
+                <h3 class="text-center">Description...!!</h3>
+                <pre>{{product.description}}</pre>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-11 bg-creame text-dark  p-0 card shadow-lg m-4">
+                 <div class="card-header display-5 text-light text-center bg-dark"><h3>Features...!!</h3></div>
+                  <div class="card-body p-4">
+                <span v-for="(item, prop) in product.features" :key="prop" ><span style="width: 115px;display: inline-block;">{{prop}} :</span> {{item}}<br></span>
+                  </div>
+            </div>
+        </div>
+    </div>
             
 
-    </div>
-    </div>
+    
 
 </template>
 
@@ -304,6 +317,8 @@ export default{
             this[this.t_name] = res.body
         })
         this.product = this[this.t_name].find(element=>element.id==this.id);
+        this.product.description = "Classic capery\nWith Casual Look\n#MADE IN INDIA\n#Handmade\nSlide to view size chart"
+        this.product.features = JSON.parse(this.product.features)
     }
 }
 </script>
