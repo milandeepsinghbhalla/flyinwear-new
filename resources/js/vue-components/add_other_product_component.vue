@@ -177,7 +177,7 @@
       },
       os_type:{
         type: "select",
-        options: ["Microsoft Windows","Mac OS","Linux","others"]
+        options: ["Microsoft Windows","Mac OS","Linux","others"],
       },
       os_parent:{
         type: "select",

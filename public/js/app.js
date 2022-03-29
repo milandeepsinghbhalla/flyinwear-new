@@ -1563,18 +1563,20 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       desktop_filters: {
-        companies: ["Dell", "HP", "Acer", "Lenovo", "Apple", "Any"],
-        processor_company: ["intel", "AMD", "Any"],
-        processor_base: ["intel core i3", "intel core i5", "intel core i7", "intel core i9", "Amd ryzen 3", "Amd ryzen 5", "AMD ryzen 7", "Any"],
-        processor_generation: ["1st gen", "2nd gen", "3rd gen", "4th gen", "5th gen", "6th gen", "7th gen", "8th gen", "9th gen", "10th gen", "11th gen", "12th gen", "Any"],
-        operating_system: ["Windows", "Linux", "Mac os", "Any"],
-        ram_size: ["2gb", "4gb", "6gb", "8gb", "12gb", "16gb", "16gb +", "Any"],
-        ram_type: ["DDR2", "DDR3", "DDR4", "Any"],
-        hardisk_type: ["HDD", "SSD", "Hybrid", "Any"],
-        hardisk_size: ["256gb", "256gb - 512gb", "512gb-1tb", "1tb-1256gb", "1256gb-1512gb", "1512gb-2tb", "2tb-2512gb", "2512gb +", "Any"],
-        graphics_type: ["integrated", "dedicated", "Any"],
-        graphics_size: ["1gb", "2gb", "4gb", "6gb", "8gb", "8gb +", "Any"],
-        Monitor_size: ["12 inches", "12 - 14 inches", "14 - 16 inches", "16 - 20 inches", "20 - 24 inches", "24 - 28 inches", "28 - 32 inches", "32 inches +", "Any"]
+        company: ["Dell", "HP", "Acer", "Lenovo", "Apple", "others"],
+        processor_company: ["Intel", "AMD", "others"],
+        processor_base: ["Intel Celeron", "Intel Pentium", "Intel Core i3", "Intel Core i5", "Intel Core i7", "Intel Core i9", "AMD Ryzen 3", "AMD Ryzen 5", "AMD Ryzen 7", "others"],
+        generation: ["1st gen", "2nd gen", "3rd gen", "4th gen", "5th gen", "6th gen", "7th gen", "8th gen", "9th gen", "10th gen", "11th gen", "12th gen"],
+        os_type: ["Microsoft Windows", "Mac OS", "Linux", "others"],
+        os_parent: ["Windows 7", "windows 8", "windows 10", "windows 11", "mac os", "Ubuntu", "Fedora", "Debian", "Kali", "others"],
+        ms_office: ["yes", "no"],
+        ram: ["2gb", "4gb", "6gb", "8gb", "12gb", "16gb", "16gb +"],
+        ram_type: ["DDR2", "DDR3", "DDR4", "others"],
+        hardisk_type: ["HDD", "SSD", "Hybrid"],
+        hardisk_size: ["<= 256gb", "256gb - 512gb", "512gb-1tb", "1tb-1256gb", "1256gb-1512gb", "1512gb-2tb", "2tb-2512gb", "2512gb +"],
+        graphics_card_type: ["integrated", "dedicated"],
+        graphics_card_size: ["1gb", "2gb", "4gb", "6gb", "8gb", "8gb +"],
+        monitor_size: ["<= 12 inches", "12 - 14 inches", "14 - 16 inches", "16 - 20 inches", "20 - 24 inches", "24 - 28 inches", "28 - 32 inches", "32 inches +"]
       }
     };
   },
@@ -1732,13 +1734,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      selected_data: {}
+      selected_data: {},
+      filter_result: [],
+      json_chk: 0
     };
   },
-  props: ["filter_data"],
+  props: ["filter_data", "parent_data", "t_name"],
   methods: {
     open_side_filter: function open_side_filter() {
       document.getElementById("myfilterSidenav").style.width = "305px";
@@ -1761,6 +1769,319 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.selected_data[prop].push(value);
         console.log(this.selected_data[prop]);
+      }
+    },
+    filter_out: function filter_out() {
+      var _this = this;
+
+      if (this.json_chk == 0) {
+        console.log(this.parent_data);
+        this.parent_data.forEach(function (el) {
+          el.features = JSON.parse(el.features);
+        });
+        this.json_chk = 1;
+      }
+
+      console.log("working");
+      var filter = [];
+
+      if (this.t_name == "desktops") {
+        var ram_selection;
+        var graphic_selection;
+
+        (function () {
+          var data = _this.parent_data;
+          var current_filter = [];
+
+          if (_this.selected_data.ram) {
+            ram_selection = [];
+            var x = 0;
+
+            _this.selected_data.ram.forEach(function (el) {
+              ram_selection[x] = el;
+              x++;
+            });
+
+            if (ram_selection.includes('16gb +')) {
+              current_filter = [];
+
+              for (var _i = 0; _i < data.length; _i++) {
+                if (data[_i].features.ram > 16) {
+                  if (!current_filter.includes(data[_i])) current_filter.push(data[_i]);
+                }
+              }
+
+              filter = current_filter;
+              data = filter;
+            }
+
+            var i = 0;
+            ram_selection.forEach(function (el) {
+              console.log("element", el);
+              var index = el.indexOf('gb');
+              if (index != -1) el = el.substr(0, index);
+              console.log("ele:- ", el);
+              ram_selection[i] = el;
+              i++;
+            });
+          } //if(filter.length>0){
+          //data = filter;
+          // }
+
+
+          if (_this.selected_data.graphic_card_size) {
+            graphic_selection = [];
+            var _x = 0;
+
+            _this.selected_data.graphic_card_size.forEach(function (el) {
+              graphic_selection[_x] = el;
+              _x++;
+            });
+
+            if (graphic_selection.includes('8gb +')) {
+              current_filter = [];
+
+              for (var _i3 = 0; _i3 < data.length; _i3++) {
+                if (data[_i3].features.graphic_card_size > 8) {
+                  if (!current_filter.includes(data[_i3])) current_filter.push(data[_i3]);
+                }
+              }
+
+              filter = current_filter;
+            }
+
+            var _i2 = 0;
+            graphic_selection.forEach(function (el) {
+              var index = el.indexOf('gb');
+              if (index != -1) el = el.substr(0, index);
+              graphic_selection[_i2] = el;
+              _i2++;
+            });
+          } //if(filter.length>0){
+          //data = filter;
+          // }
+
+
+          if (_this.selected_data.hardisk_size) {
+            current_filter = [];
+
+            var _loop = function _loop(_i4) {
+              _this.selected_data.hardisk_size.forEach(function (el) {
+                switch (el) {
+                  case 'hard_0':
+                    if (data[_i4].features.hardisk_size <= 256) {
+                      if (!current_filter.includes(data[_i4])) current_filter.push(data[_i4]);
+                    }
+
+                    break;
+
+                  case 'hard_1':
+                    if (data[_i4].features.hardisk_size <= 512 && data[_i4].features.hardisk_size >= 256) {
+                      if (!current_filter.includes(data[_i4])) current_filter.push(data[_i4]);
+                    }
+
+                    break;
+
+                  case 'hard_2':
+                    if (data[_i4].features.hardisk_size >= 512 && data[_i4].features.hardisk_size <= 1000) {
+                      if (!current_filter.includes(data[_i4])) current_filter.push(data[_i4]);
+                    }
+
+                    break;
+
+                  case 'hard_3':
+                    if (data[_i4].features.hardisk_size >= 1000 && data[_i4].features.hardisk_size <= 1256) {
+                      if (!current_filter.includes(data[_i4])) current_filter.push(data[_i4]);
+                    }
+
+                    break;
+
+                  case 'hard_4':
+                    if (data[_i4].features.hardisk_size >= 1256 && data[_i4].features.hardisk_size <= 1512) {
+                      if (!current_filter.includes(data[_i4])) current_filter.push(data[_i4]);
+                    }
+
+                    break;
+
+                  case 'hard_5':
+                    if (data[_i4].features.hardisk_size >= 1512 && data[_i4].features.hardisk_size <= 2000) {
+                      if (!current_filter.includes(data[_i4])) current_filter.push(data[_i4]);
+                    }
+
+                    break;
+
+                  case 'hard_6':
+                    if (data[_i4].features.hardisk_size <= 2512 && data[_i4].features.hardisk_size >= 2000) {
+                      if (!current_filter.includes(data[_i4])) current_filter.push(data[_i4]);
+                    }
+
+                    break;
+
+                  case 'hard_7':
+                    if (data[_i4].features.hardisk_size >= 2512) {
+                      if (!current_filter.includes(data[_i4])) current_filter.push(data[_i4]);
+                    }
+
+                    break;
+                }
+              });
+            };
+
+            for (var _i4 = 0; _i4 < data.length; _i4++) {
+              _loop(_i4);
+            }
+
+            filter = current_filter;
+            data = filter;
+          } //if(filter.length>0){
+          //data = filter;
+          // }
+
+
+          if (_this.selected_data.monitor_size) {
+            current_filter = [];
+            console.log("data = ", data);
+
+            var _loop2 = function _loop2(_i5) {
+              _this.selected_data.monitor_size.forEach(function (el) {
+                switch (el) {
+                  case "monitor_0":
+                    if (data[_i5].features.monitor_size <= 12) {
+                      if (!current_filter.includes(data[_i5])) current_filter.push(data[_i5]);
+                    }
+
+                    break;
+
+                  case "monitor_1":
+                    if (data[_i5].features.monitor_size >= 12 && data[_i5].features.monitor_size <= 14) {
+                      if (!current_filter.includes(data[_i5])) current_filter.push(data[_i5]);
+                    }
+
+                    break;
+
+                  case "monitor_2":
+                    if (data[_i5].features.monitor_size >= 14 && data[_i5].features.monitor_size <= 16) {
+                      if (!current_filter.includes(data[_i5])) current_filter.push(data[_i5]);
+                    }
+
+                    break;
+
+                  case "monitor_3":
+                    if (data[_i5].features.monitor_size >= 16 && data[_i5].features.monitor_size <= 20) {
+                      if (!current_filter.includes(data[_i5])) current_filter.push(data[_i5]);
+                    }
+
+                    break;
+
+                  case "monitor_4":
+                    if (data[_i5].features.monitor_size >= 20 && data[_i5].features.monitor_size <= 24) {
+                      if (!current_filter.includes(data[_i5])) current_filter.push(data[_i5]);
+                    }
+
+                    break;
+
+                  case "monitor_5":
+                    if (data[_i5].features.monitor_size >= 24 && data[_i5].features.monitor_size <= 28) {
+                      if (!current_filter.includes(data[_i5])) current_filter.push(data[_i5]);
+                    }
+
+                    break;
+
+                  case "monitor_6":
+                    console.log(data[_i5].features.monitor_size);
+
+                    if (data[_i5].features.monitor_size >= 28 && data[_i5].features.monitor_size <= 32) {
+                      if (!current_filter.includes(data[_i5])) current_filter.push(data[_i5]);
+                    }
+
+                    break;
+
+                  case "monitor_7":
+                    if (data[_i5].features.monitor_size >= 32) {
+                      if (!current_filter.includes(data[_i5])) current_filter.push(data[_i5]);
+                    }
+
+                    break;
+                }
+              });
+            };
+
+            for (var _i5 = 0; _i5 < data.length; _i5++) {
+              _loop2(_i5);
+            }
+
+            filter = current_filter;
+            data = filter;
+          } //if(filter.length>0){
+          //data = filter;
+          // }
+
+
+          for (var feature_key in _this.selected_data) {
+            current_filter = [];
+            console.log(feature_key);
+            console.log("data :-", data);
+
+            if (feature_key == 'ram') {
+              for (var _i6 = 0; _i6 < data.length; _i6++) {
+                console.log("seleceted data", ram_selection);
+
+                if (ram_selection) {
+                  console.log("find data :- ", data[_i6].features);
+
+                  if (ram_selection.includes(data[_i6].features[feature_key])) {
+                    if (!current_filter.includes(data[_i6])) {
+                      current_filter.push(data[_i6]);
+                    }
+                  }
+                }
+              }
+
+              filter = current_filter;
+              data = filter;
+            } else if (feature_key == "graphic_card_size") {
+              for (var _i7 = 0; _i7 < data.length; _i7++) {
+                console.log("seleceted data", graphic_selection);
+
+                if (graphic_selection) {
+                  console.log("find data :- ", data[_i7].features);
+
+                  if (graphic_selection.includes(data[_i7].features[feature_key])) {
+                    if (!current_filter.includes(data[_i7])) {
+                      current_filter.push(data[_i7]);
+                    }
+                  }
+                }
+              }
+
+              filter = current_filter;
+              data = filter;
+            } else if (feature_key != 'hardisk_size' && feature_key != 'monitor_size') {
+              for (var _i8 = 0; _i8 < data.length; _i8++) {
+                console.log("seleceted data", _this.selected_data[feature_key]);
+
+                if (_this.selected_data[feature_key]) {
+                  console.log("find data :- ", data[_i8].features);
+
+                  if (_this.selected_data[feature_key].includes(data[_i8].features[feature_key])) {
+                    if (!current_filter.includes(data[_i8])) {
+                      current_filter.push(data[_i8]);
+                    }
+                  }
+                }
+              }
+
+              filter = current_filter;
+              data = filter;
+            } //if(filter.length>0){
+            //data = filter;
+            //} 
+
+          }
+
+          ;
+          console.log(filter);
+        })();
       }
     }
   }
@@ -26264,7 +26585,13 @@ var render = function () {
     "div",
     { staticStyle: { "margin-top": "7.5em" } },
     [
-      _c("filters", { attrs: { filter_data: _vm.desktop_filters } }),
+      _c("filters", {
+        attrs: {
+          filter_data: _vm.desktop_filters,
+          parent_data: _vm.desktops,
+          t_name: "desktops",
+        },
+      }),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
         _c("h3", { staticClass: "text-center mb-4" }, [
@@ -26488,8 +26815,9 @@ var render = function () {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: prop != "hardisk_size" && "monitor_size",
-                        expression: "prop!= 'hardisk_size' && 'monitor_size'",
+                        value: prop != "hardisk_size" && prop != "monitor_size",
+                        expression:
+                          "prop!= 'hardisk_size' && prop!='monitor_size'",
                       },
                     ],
                     key: item + "_" + Math.random(),
@@ -26596,6 +26924,18 @@ var render = function () {
             2
           )
         }),
+        _vm._v(" "),
+        _c("div", { staticClass: "text-center" }, [
+          _c("button", { staticClass: "btn btn-dark btn-md mr-3" }, [
+            _vm._v("close"),
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn orange btn-md", on: { click: _vm.filter_out } },
+            [_vm._v("Apply")]
+          ),
+        ]),
       ],
       2
     ),
