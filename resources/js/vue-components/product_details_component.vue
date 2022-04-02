@@ -10,7 +10,7 @@
                         </div>
                         <div class="card-body">
                             <p class="d-flex">
-                            <span class="card-title display-4 flex-grow-1">&#8377;{{product.price}}</span>
+                            <span class="card-title display-4 flex-grow-1">&#8377;{{product.actual_price}}</span>
                             <span class="align-self-center ml-3">
                             <span v-if="this.category=='clothing'">
                                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Select Size : </label>
@@ -313,11 +313,12 @@ export default{
                 el.colors = JSON.parse(el.colors)
                 el.images = JSON.parse(el.images)
                 el.weight = Number(el.weight)
+                el.actual_price  = el.price - (el.price * el.discount)/100
             })
             this[this.t_name] = res.body
         })
         this.product = this[this.t_name].find(element=>element.id==this.id);
-        this.product.description = "Classic capery\nWith Casual Look\n#MADE IN INDIA\n#Handmade\nSlide to view size chart"
+        // this.product.description = "Classic capery\nWith Casual Look\n#MADE IN INDIA\n#Handmade\nSlide to view size chart"
         this.product.features = JSON.parse(this.product.features)
     }
 }

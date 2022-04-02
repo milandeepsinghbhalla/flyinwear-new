@@ -10,7 +10,7 @@
         <a href="#">Contact</a> -->
             <div v-for="(data,prop) in filter_data" :key="prop" class="ml-5 mb-3" style="font-size:1.4em">
                 <span style="font-size:1em;margin-left:-1.7em" >{{prop}}:-</span><br>
-                <span v-for="item in data" :key="item + '_' + Math.random()"  v-show="prop!= 'hardisk_size' && prop!='monitor_size'">
+                <span v-for="item in data" :key="item + '_' + Math.random()"  v-show="prop!= 'hardisk_size' && prop!='monitor_size' &&prop!='clothing_price'">
                 <input v-on:change="toogle_data(prop,item)"  class="form-check-input" type="checkbox" :value="item">
                 <label class="form-check-label" >
                     {{item}}
@@ -32,6 +32,13 @@
                 </label>
                 <br>
                 </span>
+                <span v-for="(item,n) in (data)" :key="item + '_' + Math.random()" v-show="prop == 'clothing_price'">
+                <input  v-on:change="toogle_data(prop,'cp_'+n)" class="form-check-input" type="checkbox" :value="'cp_'+n">
+                <label class="form-check-label" >
+                    {{item}}
+                </label>
+                <br>
+                </span>
                 
             </div>
             <div class="text-center">
@@ -42,12 +49,16 @@
     </div>    
 </template>
 <script>
-    export default{
+import Vue from "vue";
+
+export default{
+        
         data: function(){
             return {
                 selected_data: {},
                 filter_result: [],
-                json_chk: 0
+                json_chk: 0,
+                clothing_products: ["joggers","shirts"]
             }
         },
         props: ["filter_data","parent_data","t_name"],
@@ -82,7 +93,11 @@
                 if(this.json_chk==0){
                     console.log(this.parent_data)
                     this.parent_data.forEach(el=>{
-                        el.features = JSON.parse(el.features)
+                        let type = typeof el.features
+                        if(type=="string"){
+                            if(el.features!="")
+                            el.features = JSON.parse(el.features)
+                        }
                     })
                     this.json_chk = 1;
                 }
@@ -360,6 +375,179 @@
                             //} 
                         };
                         console.log(filter)
+                        let filter_data = JSON.stringify(filter);
+                        localStorage.setItem('filter_data',filter_data)
+                        this.$router.push({name:'filter-result'});
+                }
+                if(this.clothing_products.includes(this.t_name)){
+                    this.parent_data.forEach(el=>{
+                        el.color = el.colors[0];
+                        if(el.features.brand)
+                        el.brand = el.features.brand
+                    })
+                    let data = this.parent_data;
+                    let current_filter = [];
+                    for(let feature_key in this.selected_data){
+                        if(feature_key!='clothing_price'&&feature_key!='size'){
+                            if(this.selected_data[feature_key]){
+                                current_filter = [];
+                                this.selected_data[feature_key].forEach(value =>{
+                                    for(let i = 0;i<data.length;i++){
+                                        if(data[i][feature_key]){
+                                            if(data[i][feature_key].toLowerCase() == value.toLowerCase()){
+                                                if(!current_filter.includes(data[i])){
+                                                    current_filter.push(data[i])
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                })
+                               data = current_filter; 
+                            }
+                            
+                        }
+                        if(feature_key=='size'){
+                            if(this.selected_data[feature_key]){
+                                current_filter = []
+                                this.selected_data.size.forEach(size=>{
+                                    let str = "stock_" + size.toLowerCase();
+                                    for(let i = 0;i<data.length;i++){
+                                        
+                                        if(data[i][str]>0){
+                                            if(!current_filter.includes(data[i])){
+                                                current_filter.push(data[i]);
+                                            }
+                                        }
+                                    }
+                                })
+                                data = current_filter
+                            }
+                        }
+                        if(feature_key=='clothing_price'){
+                            if(this.selected_data[feature_key]){
+                                current_filter = []
+                                this.selected_data.clothing_price.forEach(el=>{
+                                    switch(el){
+                                        case "cp_0":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price<=100){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "cp_1":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price>100 && data[i].actual_price<=200){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "cp_2":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price>200 && data[i].actual_price<=300){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "cp_3":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price>300 && data[i].actual_price<=400){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "cp_4":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price>400 && data[i].actual_price<=500){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "cp_5":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price>500 && data[i].actual_price<=700){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "cp_6":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price>700 && data[i].actual_price<=900){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "cp_7":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price>900 && data[i].actual_price<=1100){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "cp_8":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price>1100 && data[i].actual_price<=1500){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "cp_9":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price>1500 && data[i].actual_price<=1900){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "cp_10":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price>1900 && data[i].actual_price<=2300){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "cp_11":
+                                            for(let i = 0;i<data.length;i++){
+                                                if(data[i].actual_price>=2300){
+                                                    if(!current_filter.includes(data[i])){
+                                                        current_filter.push(data[i])
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                    }
+                                })
+                                data = current_filter
+                            }
+                            
+                        }
+                    }
+                        let filter_data = JSON.stringify(data);
+                        localStorage.setItem('filter_data',filter_data)
+                        this.$router.push({name:'filter-result'});
+                   
                 }
             }
         }

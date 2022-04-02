@@ -140,6 +140,7 @@
             <router-view name="vendor-page-component" v-if="(this.$current_user.role=='vendor' || this.$current_user.role=='admin_vendor')"></router-view>
             <router-view name="login-page-component" :cart="cart"></router-view>
             <router-view name="checkout-page-component" :cart="cart"></router-view>
+            <router-view name="filter-page-component" :all_products="all_products" :items_in_cart="items_in_cart" :cart="cart"  :wishlist="wishlist"></router-view>
 
 
         </div>

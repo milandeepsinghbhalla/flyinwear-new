@@ -19,12 +19,22 @@ import admin_page_component from "./vue-components/admin_page_component.vue"
 import vendor_page_component from "./vue-components/vendor_page_component.vue"
 import login_page_component from "./vue-components/login_page_component.vue"
 import checkout_page_component from "./vue-components/checkout_page_component.vue"
+import filter_page_component from "./vue-components/filter_page_component.vue"
 
 import { forEach } from "lodash";
 
 
 const router = new VueRouter({
 	routes: [
+        {
+            path:'/filter-result',
+            name: "filter-result",
+            components:{
+                'filter-page-component': filter_page_component
+            },
+            props: true
+            
+        },
         {
             path:'/vendor',
             components:{
@@ -320,6 +330,7 @@ const webstore = new Vue({
                           o.fabric= the_product.fabric
                           o.images= the_product.images
                           o.key = the_product.key
+                          o.actual_price = the_product.actual_price
                          
                   final.push(o);
                     }
@@ -344,7 +355,7 @@ const webstore = new Vue({
         cart_total(){
             let total = 0;
             this.items_in_cart.forEach(item=>{
-                total += (item.no_in_cart * item.price);
+                total += (item.no_in_cart * item.actual_price);
             })
             return total;
         },
@@ -406,6 +417,7 @@ const webstore = new Vue({
                 jogger.colors = JSON.parse(jogger.colors)
                 jogger.images = JSON.parse(jogger.images)
                 jogger.weight = Number(jogger.weight)
+                jogger.actual_price = jogger.price - (jogger.price*jogger.discount)/100
             })
              this.joggers = res.body
         })

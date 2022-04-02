@@ -41,7 +41,6 @@ class productcontroller extends Controller
                 'colors'=> json_encode(json_decode($req->colors)),
                 'fabric'=> $req->fabric,
                 'images'=> json_encode($other_imgs_links),
-                'bid'=> $req->bid,
                 'stock_s'=> (int)$req->stock_s,
                 'stock_m'=> (int)$req->stock_m,
                 'stock_l'=> (int)$req->stock_l,
@@ -50,6 +49,13 @@ class productcontroller extends Controller
                 'stock_3xl'=> (int)$req->stock_3xl,
                 'stock_4xl'=> (int)$req->stock_4xl,
                 'stock_5xl'=> (int)$req->stock_5xl,
+                'vid'=> $req->vid,
+                'features'=> $req->features,
+                'description'=> $req->description,
+                'height'=> $req->height,
+                'breadth'=>$req->breadth,
+                'discount'=>$req->discount,
+                'depth'=> $req->depth,
                 'key'=> $key,
                 'keywords'=> $req->keywords
             ]);
