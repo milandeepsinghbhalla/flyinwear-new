@@ -20,7 +20,7 @@
       <div class="card-body bg-light text-center">
         <p class="card-text" v-on:click="open_pro_det(product)">{{product.title.substring(0,60)+'...'}}</p>
         <div class="d-flex justify-content-center">
-        <button data-toggle="modal" v-on:click="quick_view(product)" class="btn btn-dark btn-sm mb-2"><i class="fas fa-eye"></i> Quick View</button>
+        <button data-toggle="modal" v-on:click="change();quick_view(product)" class="btn btn-dark btn-sm mb-2"><i class="fas fa-eye"></i> Quick View</button>
         <i class="fas fa-heart align-self-start wishicon  text-danger" v-if="in_wishlist" v-on:click="toggle_wishlist(product.id)"></i> 
         <i class="fas fa-heart align-self-start wishicon text-grey" v-else v-on:click="toggle_wishlist(product.id)"></i> 
         </div>
@@ -90,7 +90,7 @@
 							  </select>
 
 							
-										<button class="btn mt-2 mt-md-0 btn-dark ml-2 btn-sm in-mob-text-card" v-if="init_add.chk" v-on:click="add_to_cart(product.id);" >Add to cart</button>
+										<button class="btn mt-2 mt-md-0 btn-dark ml-2 btn-sm in-mob-text-card" v-if="init_add.chk" v-on:click="change();add_to_cart(product.id);" >Add to cart</button>
 										
 								
 									
@@ -161,6 +161,8 @@ export default{
                       })
                   }
                   localStorage.setItem('cb_cart',JSON.stringify(this.cart));
+                  $(this.product.modal_id).modal('hide');
+                  swal("product added to cart"," ","success");
             
           }
           else
@@ -193,12 +195,18 @@ export default{
                       cart: JSON.stringify(this.cart),
                       id: this.$current_user.id
                   }
+                  $(this.product.modal_id).modal('hide');
                   if(this.$current_user.id!=-1){
                       this.$http.post("/api/update-cart",update_cart).then(res=>{
                           console.log(res.body);
                       })
                   }
                   localStorage.setItem('cb_cart',JSON.stringify(this.cart));
+                   
+                   setTimeout(function(){
+                       swal("product added to cart"," ","success");
+                   },100000)
+                  
              
           }
          }
@@ -217,7 +225,7 @@ export default{
                     let cart_id = this.product.id + '_'+ this.product.size+ '_' + this.product.color
                     let item = this.items_in_cart.find(el=>el.cart_id == cart_id);
                     if(item){
-                        if(this.product[selected_size]>(item.no_in_cart-1)){
+                        if(this.product[selected_size]>(item.no_in_cart+1)){
                             let obj =  {
                                 chk: true,
                                 msg: "Add to cart"
@@ -244,7 +252,7 @@ export default{
                     let cart_id = this.product.id + '_'+ this.product.color
                     let item = this.items_in_cart.find(el=>el.cart_id == cart_id);
                     if(item){
-                        if(this.product.stock>(item.no_in_cart-1)){
+                        if(this.product.stock>(item.no_in_cart+1)){
                             let obj =  {
                                 chk: true,
                                 msg: "Add to cart"

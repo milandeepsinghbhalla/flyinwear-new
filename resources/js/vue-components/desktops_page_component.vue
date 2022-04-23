@@ -30,8 +30,8 @@ export default{
                 ram_type: ["DDR2","DDR3","DDR4","others"],
                 hardisk_type:["HDD","SSD","Hybrid"],
                 hardisk_size: ["<= 256gb","256gb - 512gb","512gb-1tb","1tb-1256gb","1256gb-1512gb","1512gb-2tb","2tb-2512gb","2512gb +"],
-                graphics_card_type: ["integrated","dedicated"],
-                graphics_card_size: ["1gb","2gb","4gb","6gb","8gb","8gb +"],
+                graphic_card_type: ["integrated","dedicated"],
+                graphic_card_size: ["1gb","2gb","4gb","6gb","8gb","8gb +"],
                 monitor_size: ["<= 12 inches","12 - 14 inches","14 - 16 inches","16 - 20 inches","20 - 24 inches","24 - 28 inches","28 - 32 inches","32 inches +"]
 
             }

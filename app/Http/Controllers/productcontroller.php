@@ -183,4 +183,33 @@ class productcontroller extends Controller
         DB::table($rs1["t_name"])->where('id',"=",$id)->update($rs2);
         return ["msg"=> "edited successfully"];
     }
+    public function edit_order_stock(Request $req){
+        $items = json_decode($req->items);
+        for($i=0;$i<count($items);$i++){
+            $id = $items[$i]->id;
+            $no_in_cart = $items[$i]->no_in_cart;
+            $rs1 = DB::table("all_products")->where('id',"=",$id)->first();
+                $rs1->stock = $rs1->stock - $no_in_cart;
+                $t_name = $rs1->t_name;
+                $rs1 = (array) $rs1;
+                
+                DB::table("all_products")->where('id',"=",$id)->update($rs1);
+            if(property_exists($items[$i],'size')){
+                
+                $rs2 = DB::table($t_name)->where('id',"=",$id)->first();
+                $rs2->stock = $rs2->stock - $no_in_cart;
+                $rs2 = (array) $rs2;
+                $prop = "stock_" . strtolower($items[$i]->size);
+                $rs2[$prop] = $rs2[$prop] - $no_in_cart;
+                DB::table($t_name)->where('id',"=",$id)->update($rs2);
+            }
+            else{
+                $rs2 = DB::table($t_name)->where('id',"=",$id)->first();
+                $rs2->stock = $rs2->stock - $no_in_cart;
+                $rs2 = (array) $rs2;
+                DB::table($t_name)->where('id',"=",$id)->update($rs2);
+
+            }
+        }
+    }
 }

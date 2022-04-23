@@ -40,6 +40,7 @@
                 }
                 #logo{
                     height: 2.7em;
+                    width: 9.4em;
                 }
                 .text-grey{
                     color: #A5B2B5;
@@ -118,6 +119,25 @@
         .text-purple{
             color: #c77dff;
         }
+        .hr-for-order{
+            
+            overflow: visible; /* For IE */
+            padding: 0;
+            border: none;
+            border-top: medium double white;
+            color: white;
+            text-align: center;
+
+        }
+        .hr-for-order:after {
+            content: "§";
+            display: inline-block;
+            position: relative;
+            top: -0.7em;
+            font-size: 1.5em;
+            padding: 0 0.25em;
+            background: #333;
+        }
                 
         </style>
     </head>
@@ -125,7 +145,7 @@
         <div id="app">
             <!-- <all-products-offcanvas-component></all-products-offcanvas-component> -->
             <navbar-component v-bind:cart="cart" v-bind:current_user="current_user" :wishlist="wishlist"></navbar-component>
-            <router-view name="joggers-page-component" :all_products="all_products" :items_in_cart="items_in_cart" :cart="cart" v-bind:joggers="joggers" :wishlist="wishlist"></router-view>
+            <router-view name="clothing-products-page-component" :key="$route.path" :all_products="all_products" :items_in_cart="items_in_cart" :cart="cart"  :wishlist="wishlist"></router-view>
             <router-view name="desktops-page-component" :all_products="all_products" :items_in_cart="items_in_cart" :cart="cart" v-bind:desktops="desktops" :wishlist="wishlist"></router-view>
             <router-view name="wishlist-page-component" v-bind:items_in_wishlist="items_in_wishlist" :wishlist="wishlist"></router-view>
 
@@ -141,6 +161,11 @@
             <router-view name="login-page-component" :cart="cart"></router-view>
             <router-view name="checkout-page-component" :cart="cart"></router-view>
             <router-view name="filter-page-component" :all_products="all_products" :items_in_cart="items_in_cart" :cart="cart"  :wishlist="wishlist"></router-view>
+            <router-view name="be-a-vendor-page-component"></router-view>
+            <router-view name="checkout-step-1-component" :sub_orders="sub_orders"></router-view>
+            <router-view name="checkout-step-2-component" :sub_orders="sub_orders" :cart="cart"></router-view>
+            <router-view name="user-orders-page-component"></router-view>
+            
 
 
         </div>

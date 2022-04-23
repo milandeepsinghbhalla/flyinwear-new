@@ -176,12 +176,12 @@ class user_controller extends Controller
         }
     }
     public function update_cart(Request $req){
-        $user = user::find($req->id)->first();
+        $user = user::find($req->id);
         $user->cart = $req->cart;
         $user->save();
     }
     public function get_wishlist(Request $req){
-        $user = user::find($req->id)->first();
+        $user = user::find($req->id);
         if($user->wishlist){
             return ["wishlist"=> $user->wishlist];
         }
@@ -192,8 +192,51 @@ class user_controller extends Controller
         }
     }
     public function update_wishlist(Request $req){
-        $user = user::find($req->id)->first();
+        $user = user::find($req->id);
         $user->wishlist = $req->wishlist;
         $user->save();
+    }
+    public function update_address_book(Request $req){
+        $user = user::find($req->id);
+        $user->address_book = $req->address_book;
+        $user->save();
+    }
+    public function get_address_book(Request $req){
+        $user = user::find($req->id);
+        if($user->address_book){
+            return ["address_book"=> $user->address_book];
+        }
+        else{
+            $empty_array = [];
+            $empty_array = json_encode($empty_array);
+            return ["address_book"=> $empty_array];
+        }
+    }
+    public function update_user_order(Request $req){
+        $user = user::find($req->id);
+        
+        if($user->orders){
+            $old_array = json_decode($user->orders);
+            $new_array = json_decode($req->orders);
+            $updated_array = array_merge($old_array,$new_array);
+            $user->orders = json_encode($updated_array);
+            $user->save();
+        }
+        else{
+            $user->orders = $req->orders;
+            $user->save();
+        }
+
+    }
+    public function get_user_orders(Request $req){
+        $user = user::find($req->id);
+        if($user->orders){
+            return ["orders"=> $user->orders];
+        }
+        else{
+            $empty_array = [];
+            $empty_array = json_encode($empty_array);
+            return ["orders"=> $empty_array];
+        }
     }
 }

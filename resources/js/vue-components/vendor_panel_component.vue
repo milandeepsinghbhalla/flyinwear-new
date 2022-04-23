@@ -4,7 +4,7 @@
        <ul style="list-style:none;" class="mt-3 sticky-top">
            <li class="text-light mb-2 sidebar-font" v-on:click="show_product_pannel">Products</li>
            <li class="text-light mb-2 sidebar-font">Users</li>
-            <li class="text-light mb-2 sidebar-font">Orders</li>
+            <li class="text-light mb-2 sidebar-font" v-on:click="show_orders_pannel">Orders</li>
        </ul>
     </div>
             <i class="fas fa-cogs text-dark ml-4 mt-2 d-block d-lg-none" v-on:click="openside()"></i>
@@ -13,7 +13,7 @@
                 <ul style="list-style:none;" class="sticky-top">
                     <li class="text-light mb-2 sidebar-font" v-on:click="closeside();show_product_pannel();">Products</li>
                     <li class="text-light mb-2 sidebar-font">Users</li>
-                        <li class="text-light mb-2 sidebar-font">Orders</li>
+                    <li class="text-light mb-2 sidebar-font" v-on:click="closeside();show_orders_pannel()">Orders</li>
                 </ul>
             </div>
     </div>
@@ -23,7 +23,13 @@
     export default{
         props: ["controls"],
         methods: {
+            show_orders_pannel(){
+                this.$router.push('/vendor-orders');
+                this.controls.show_product_pannel = 0;
+                this.controls.show_orders_pannel = 1;
+            },
             show_product_pannel(){
+                this.$router.push('/vendor');
                 this.controls.show_product_pannel = 1;
                 this.controls.show_others = 1;
                 this.controls.add_product = 0;

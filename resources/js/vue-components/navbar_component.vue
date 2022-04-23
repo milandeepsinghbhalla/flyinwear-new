@@ -2,16 +2,19 @@
     <nav id="my_nav" class="navbar navbar-expand-lg navbar-dark bg-dark py-0 fixed-top"  >
         <all-products-offcanvas-component></all-products-offcanvas-component>
 		 <a class="navbar-brand m-0" href="#"><img src="storage/logo.png" id="logo"></a>
-		 <ul class="navbar-nav m-0 cart-ul-mobile">
+		 <!-- <ul class="navbar-nav m-0 cart-ul-mobile">
 				 <li class="nav-item">
 		        <router-link class="nav-link" to="/wishlist"><i class="fas fa-heart"><sup class="sup-no">{{wishlist.length}}</sup></i></router-link>
 				</li>	 
 		
-		</ul>
+		</ul> -->
 
-		 <ul class="navbar-nav m-0 cart-ul-mobile"> 
+		 <ul class="navbar-nav ml-auto cart-ul-mobile">
+			  
 		  	<li class="nav-item">
-		        <router-link class="nav-link" to="/cart"><i class="fas fa-shopping-cart"><sup class="sup-no">{{cart.length}}</sup></i></router-link>
+				  		        <router-link class="nav-link d-inline mr-2" to="/wishlist"><i class="fas fa-heart"><sup class="sup-no">{{wishlist.length}}</sup></i></router-link>
+
+		        <router-link class="nav-link d-inline" to="/cart"><i class="fas fa-shopping-cart"><sup class="sup-no">{{cart.length}}</sup></i></router-link>
 		    </li>
 		 </ul>
 
@@ -28,7 +31,11 @@
 		   	 	</li>
                 <li class="nav-item">
 			      <router-link class="nav-link" to="/" data-toggle="collapse" data-target="#navbarSupportedContent">Home</router-link>
+
 		   	 	</li>
+				 <li class="nav-item cart-ul-laptop">
+		        <router-link class="nav-link" to="/wishlist"><i class="fas fa-heart"><sup class="sup-no">{{wishlist.length}}</sup></i></router-link>
+				</li>
                 <li class="nav-item cart-ul-laptop">
 			       <router-link class="nav-link" to="/cart"><i class="fas fa-shopping-cart"><sup class="sup-no">{{cart.length}}</sup></i></router-link>
 			    </li>
@@ -62,6 +69,16 @@ import all_products_offcanvas_component from "./all_products_offcanvas_component
         props:['cart','current_user',"wishlist"],
         methods: {
              logout(){
+				 let wishlist_data =  {
+					 id: this.$current_user.id,
+					 wishlist: JSON.stringify(this.wishlist)
+				 }
+				 let cart_data = {
+					 id: this.$current_user.id,
+					 cart: JSON.stringify(this.cart)
+				 }
+				 this.$http.post('/api/update-wishlist',wishlist_data).then(res=>{})
+				 this.$http.post('/api/update-cart',cart_data).then(res=>{})
                  this.$current_user = {
 					 name: "guest",
 					 id: -1,

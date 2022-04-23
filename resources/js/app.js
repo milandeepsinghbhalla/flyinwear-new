@@ -8,7 +8,7 @@ Vue.use(VueScrollTo);
 
 import navbar_component from './vue-components/navbar_component.vue';
 import all_products_offcanvas_component from "./vue-components/all_products_offcanvas_component.vue";
-import joggers_page_component from "./vue-components/joggers_page_component.vue"
+import clothing_products_page_component from "./vue-components/clothing_products_page_component.vue"
 import desktops_page_component from "./vue-components/desktops_page_component.vue"
 import wishlist_page_component from "./vue-components/wishlist_page_component.vue"
 
@@ -20,7 +20,10 @@ import vendor_page_component from "./vue-components/vendor_page_component.vue"
 import login_page_component from "./vue-components/login_page_component.vue"
 import checkout_page_component from "./vue-components/checkout_page_component.vue"
 import filter_page_component from "./vue-components/filter_page_component.vue"
-
+import be_a_vendor_page_component from "./vue-components/be_a_vendor_page_component.vue"
+import checkout_step_1_component from "./vue-components/checkout_step_1_component.vue"
+import checkout_step_2_component from "./vue-components/checkout_step_2_component.vue"
+import user_orders_page_component from "./vue-components/user_orders_page_component.vue";
 import { forEach } from "lodash";
 
 
@@ -37,6 +40,13 @@ const router = new VueRouter({
         },
         {
             path:'/vendor',
+            components:{
+                'vendor-page-component': vendor_page_component
+            }
+            
+        },
+        {
+            path:'/vendor-orders',
             components:{
                 'vendor-page-component': vendor_page_component
             }
@@ -65,7 +75,20 @@ const router = new VueRouter({
         {
             path:'/joggers',
             components:{
-                "joggers-page-component": joggers_page_component
+                "clothing-products-page-component": clothing_products_page_component
+            }
+            
+        },{
+            path:'/shirts',
+            components:{
+                "clothing-products-page-component": clothing_products_page_component
+            }
+            
+        },
+        {
+            path:'/clothing-products/:t_name',
+            components:{
+                "clothing-products-page-component": clothing_products_page_component
             }
             
         },
@@ -91,6 +114,13 @@ const router = new VueRouter({
             
         },
         {
+            path:'/vendor-registration',
+            components:{
+                "be-a-vendor-page-component": be_a_vendor_page_component
+            }
+            
+        },
+        {
             path:'/wishlist',
             components:{
                 "wishlist-page-component": wishlist_page_component
@@ -101,6 +131,27 @@ const router = new VueRouter({
             path:'/checkout/:sub-route',
             components:{
                 "checkout-page-component": checkout_page_component
+            }
+            
+        },
+        {
+            path:'/checkout-step-1',
+            components:{
+                "checkout-step-1-component": checkout_step_1_component
+            }
+            
+        },
+        {
+            path:'/checkout-step-2',
+            components:{
+                "checkout-step-2-component": checkout_step_2_component
+            }
+            
+        },
+        {
+            path:'/orders',
+            components:{
+                "user-orders-page-component": user_orders_page_component
             }
             
         },
@@ -122,6 +173,7 @@ const webstore = new Vue({
             current_user: {
                
             },
+            clothing_products:["joggers","shirts","round_necks",'polos','sweat_shirts','kurtas','jeans','caperies','shorts'],
             shirts: [],
             round_necks:[],
             polos: [],
@@ -331,6 +383,7 @@ const webstore = new Vue({
                           o.images= the_product.images
                           o.key = the_product.key
                           o.actual_price = the_product.actual_price
+                          o.vid = the_product.vid
                          
                   final.push(o);
                     }
@@ -365,6 +418,18 @@ const webstore = new Vue({
                 weight += (item.weight * item.no_in_cart)
             })
             return weight;
+        },
+        sub_orders(){
+            let sub_orders = {}
+            this.items_in_cart.forEach(item=>{
+                let prop = "sub_order_" + item.vid
+                sub_orders[prop] = []
+            })
+            this.items_in_cart.forEach(item=>{
+                let prop  = "sub_order_" + item.vid;
+                sub_orders[prop].push(item);
+            })
+            return sub_orders;
         }
     },
     components:{
@@ -410,17 +475,30 @@ const webstore = new Vue({
             })
              this.desktops = res.body
         })
-       await this.$http.post('api/get-products',{t_name: "joggers"}).then( res=>{
-            console.log("joggers:-  ",res.body);
-            
-            res.body.forEach(jogger=>{
-                jogger.colors = JSON.parse(jogger.colors)
-                jogger.images = JSON.parse(jogger.images)
-                jogger.weight = Number(jogger.weight)
-                jogger.actual_price = jogger.price - (jogger.price*jogger.discount)/100
+       await this.clothing_products.forEach(products=>{
+             this.$http.post('api/get-products',{t_name: products}).then( res=>{
+                console.log("products:-  ",res.body);
+                
+                res.body.forEach(product=>{
+                    product.colors = JSON.parse(product.colors)
+                    product.images = JSON.parse(product.images)
+                    product.weight = Number(product.weight)
+                    product.actual_price = product.price - (product.price*product.discount)/100
+                })
+                 this[products] = res.body
             })
-             this.joggers = res.body
         })
+    //    await this.$http.post('api/get-products',{t_name: "joggers"}).then( res=>{
+    //         console.log("joggers:-  ",res.body);
+            
+    //         res.body.forEach(jogger=>{
+    //             jogger.colors = JSON.parse(jogger.colors)
+    //             jogger.images = JSON.parse(jogger.images)
+    //             jogger.weight = Number(jogger.weight)
+    //             jogger.actual_price = jogger.price - (jogger.price*jogger.discount)/100
+    //         })
+    //          this.joggers = res.body
+    //     })
     }
 
 })

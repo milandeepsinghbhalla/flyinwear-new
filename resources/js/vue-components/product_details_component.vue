@@ -156,7 +156,7 @@ export default{
                     let cart_id = this.product.id + '_'+ this.product.size+ '_' + this.product.color
                     let item = this.items_in_cart.find(el=>el.cart_id == cart_id);
                     if(item){
-                        if(this.product[selected_size]>(item.no_in_cart-1)){
+                        if(this.product[selected_size]>(item.no_in_cart+1)){
                             let obj =  {
                                 chk: true,
                                 msg: "Add to cart"
@@ -183,7 +183,7 @@ export default{
                     let cart_id = this.product.id + '_'+ this.product.color
                     let item = this.items_in_cart.find(el=>el.cart_id == cart_id);
                     if(item){
-                        if(this.product.stock>(item.no_in_cart-1)){
+                        if(this.product.stock>(item.no_in_cart+1)){
                             let obj =  {
                                 chk: true,
                                 msg: "Add to cart"

@@ -58,7 +58,7 @@ export default{
                 selected_data: {},
                 filter_result: [],
                 json_chk: 0,
-                clothing_products: ["joggers","shirts"]
+                clothing_products: ["joggers","shirts","round_necks",'polos','sweat_shirts','kurtas','jeans','caperies','shorts']
             }
         },
         props: ["filter_data","parent_data","t_name"],

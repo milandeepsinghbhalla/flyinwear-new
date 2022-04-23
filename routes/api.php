@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user_controller;
 use App\Http\Controllers\productcontroller;
 use App\Http\Controllers\shiprocketController;
+use App\Http\Controllers\vendorController;
+use App\Http\Controllers\shippingController;
+use App\Http\Controllers\mailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,5 +47,19 @@ Route::get('get-tocken-ship',[shiprocketController::class,'get_tocken_ship']);
 
 Route::get('get-ship-tocken',[shiprocketController::class,'get_tocken']);
 Route::post('add-ship-tocken',[shiprocketController::class,'add_tocken']);
+Route::post('register-vendor',[vendorController::class,'add_vendor']);
+Route::post('update-address-book',[user_controller::class,'update_address_book']);
+Route::post('get-address-book',[user_controller::class,'get_address_book']);
+Route::post('get-distances',[shippingController::class,'get_distances']);
+Route::post('update-user-order',[user_controller::class,'update_user_order']);
+Route::post('get-user-orders',[user_controller::class,'get_user_orders']);
+
+Route::post('update-vendor-order',[vendorController::class,'update_vendor_order']);
+Route::post('get-vendor-orders',[vendorController::class,'get_vendor_orders']);
+Route::post('edit-order-stock',[productcontroller::class,'edit_order_stock']);
+Route::post('send-order-mail',[mailController::class,'send_order_mail']);
+
+
+
 
 

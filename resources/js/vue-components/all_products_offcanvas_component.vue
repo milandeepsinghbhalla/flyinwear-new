@@ -8,26 +8,26 @@
                         <li class="dropdown-submenu ">
 				                <a class="dropdown-item dropdown-toggle side-nav-text" href="#">Upper-wear</a>
 				                <ul class="dropdown-menu float-none">
-				                  <li v-on:click="closeNav" ><router-link to="/shirts"  v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent"  class="dropdown-item side-nav-text">Shirts</router-link></li>
+				                  <li v-on:click="closeNav" ><router-link to="/clothing-products/shirts"  v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent"  class="dropdown-item side-nav-text">Shirts</router-link></li>
 				                  <li class="dropdown-submenu">
 				                  	 <a class="dropdown-item dropdown-toggle side-nav-text" href="#">T-Shirts</a>
 				                  	 <ul class="dropdown-menu float-none">
-				                  		<li v-on:click="closeNav"><router-link to="/round-neck" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text" >Round-neck</router-link></li>
-				                  		<li v-on:click="closeNav"><router-link to="/Polos" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">Polos</router-link></li>
+				                  		<li v-on:click="closeNav"><router-link to="/clothing-products/round_necks" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text" >Round-neck</router-link></li>
+				                  		<li v-on:click="closeNav"><router-link to="/clothing-products/polos" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">Polos</router-link></li>
 				                  	</ul>
 				                  	
 				                  </li>
-								  <li v-on:click="closeNav"><router-link to="/Sweat-shirts"  v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">Sweat-shirts</router-link></li>
-								  <li v-on:click="closeNav"><router-link to="/Kurtas" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">Kurtas</router-link></li>
+								  <li v-on:click="closeNav"><router-link to="/clothing-products/sweat_shirts"  v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">Sweat-shirts</router-link></li>
+								  <li v-on:click="closeNav"><router-link to="/clothing-productss/kurtas" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">Kurtas</router-link></li>
 				                </ul>
 				              </li>
                         <li class="dropdown-submenu ">
 				                <a class="dropdown-item dropdown-toggle side-nav-text" href="#">Bottom-wear</a>
 				                <ul class="dropdown-menu float-none">
-				                  <li v-on:click="closeNav"><router-link to="/jeans"  v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent"  class="dropdown-item side-nav-text">Jeans</router-link></li>
-								  <li v-on:click="closeNav"><router-link to="/joggers" v-on:click="closeNav" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">Joggers</router-link></li>
-								  <li v-on:click="closeNav"><router-link to="/caperies" v-on:click="closeNav" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">caperies</router-link></li>
-                                    <li v-on:click="closeNav"><router-link to="/shorts" v-on:click="closeNav" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">shorts</router-link></li>
+				                  <li v-on:click="closeNav"><router-link to="/clothing-products/jeans"  v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent"  class="dropdown-item side-nav-text">Jeans</router-link></li>
+								  <li v-on:click="closeNav"><router-link to="/clothing-products/joggers" v-on:click="closeNav" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">Joggers</router-link></li>
+								  <li v-on:click="closeNav"><router-link to="/clothing-products/caperies" v-on:click="closeNav" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">caperies</router-link></li>
+                                    <li v-on:click="closeNav"><router-link to="/clothing-products/shorts" v-on:click="closeNav" v-scroll-to="'#my_nav'"  data-target="#navbarSupportedContent" class="dropdown-item side-nav-text">shorts</router-link></li>
 
                                 </ul>
 				              </li>
