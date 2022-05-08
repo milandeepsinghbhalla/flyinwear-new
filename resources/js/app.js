@@ -24,6 +24,10 @@ import be_a_vendor_page_component from "./vue-components/be_a_vendor_page_compon
 import checkout_step_1_component from "./vue-components/checkout_step_1_component.vue"
 import checkout_step_2_component from "./vue-components/checkout_step_2_component.vue"
 import user_orders_page_component from "./vue-components/user_orders_page_component.vue";
+import search_results_page_component from "./vue-components/search_results_page_component.vue";
+import other_products_page_component from "./vue-components/other_products_page_component.vue"
+import home_page_component from "./vue-components/home_page_component.vue";
+
 import { forEach } from "lodash";
 
 
@@ -100,6 +104,13 @@ const router = new VueRouter({
             
         },
         {
+            path:'/other-products/:t_name',
+            components:{
+                "other-products-page-component": other_products_page_component
+            }
+            
+        },
+        {
             path:'/product-details/:key',
             components:{
                 "product_details_component": product_details_component
@@ -155,6 +166,19 @@ const router = new VueRouter({
             }
             
         },
+        {
+            path:'/search-results',
+            components:{
+                "search-results-page-component": search_results_page_component
+            }
+            
+        },
+        {
+            path: "/",
+            components:{
+                'home-page-component': home_page_component
+            }
+        }
     ]
     })
 const webstore = new Vue({
@@ -162,6 +186,7 @@ const webstore = new Vue({
     router: router,
     data: function(){
         return {
+            updator: "",
             search_result: [],
             form1: {
                 t_name: '',
@@ -173,7 +198,8 @@ const webstore = new Vue({
             current_user: {
                
             },
-            clothing_products:["joggers","shirts","round_necks",'polos','sweat_shirts','kurtas','jeans','caperies','shorts'],
+            clothing_products:["joggers","shirts","round_necks",'polos','sweat_shirts','kurtas','jeans','caperies','shorts',"ethinics","w_ethinics","w_tops","w_sweat_shirts","w_kurtas","w_jeans","w_caperies","w_joggers","w_shorts"],
+            other_products: ["laptops","mobiles"],
             shirts: [],
             round_necks:[],
             polos: [],
@@ -398,8 +424,10 @@ const webstore = new Vue({
             this.all_products.forEach(product=>{
                 this.wishlist.forEach(el=>{
                     if(product.id==el){
+                        if(this[product.t_name]){
                         let wish_item = this[product.t_name].find(pro=>pro.id==product.id);
                         arr.push(wish_item);
+                        }
                     }
                 })
             })
@@ -437,9 +465,7 @@ const webstore = new Vue({
         "all-products-offcanvas-component": all_products_offcanvas_component
     },
     async created(){
-        if(localStorage.getItem("cb_cart")){
-            this.cart = JSON.parse(localStorage.getItem("cb_cart"));
-        }
+        
         
         Vue.prototype.$current_user = {
             id: -1,
@@ -454,12 +480,7 @@ const webstore = new Vue({
         if(localStorage.getItem("current_user")){
             Vue.prototype.$current_user = JSON.parse(localStorage.getItem("current_user"));
         }
-        if(this.$current_user.id!=-1){
-            await this.$http.post("api/get-wishlist",{id: this.$current_user.id}).then(res=>{
-                console.log("wish  ",res.body);
-                this.wishlist = JSON.parse(res.body.wishlist);
-            })
-        }
+        
         await this.$http.get('/api/get-all-products').then( res=>{
             console.log(res.body);
              this.all_products = res.body;
@@ -488,6 +509,28 @@ const webstore = new Vue({
                  this[products] = res.body
             })
         })
+        await this.other_products.forEach(products=>{
+            this.$http.post('api/get-products',{t_name: products}).then( res=>{
+               console.log("products:-  ",res.body);
+               
+               res.body.forEach(product=>{
+                   product.colors = JSON.parse(product.colors)
+                   product.images = JSON.parse(product.images)
+                   product.weight = Number(product.weight)
+                   product.actual_price = product.price - (product.price*product.discount)/100
+               })
+                this[products] = res.body
+           })
+       })
+       if(this.$current_user.id!=-1){
+        await this.$http.post("api/get-wishlist",{id: this.$current_user.id}).then(res=>{
+            console.log("wish  ",res.body);
+            this.wishlist = JSON.parse(res.body.wishlist);
+        })
+        if(localStorage.getItem("cb_cart")){
+            this.cart = JSON.parse(localStorage.getItem("cb_cart"));
+        }
+    }
     //    await this.$http.post('api/get-products',{t_name: "joggers"}).then( res=>{
     //         console.log("joggers:-  ",res.body);
             

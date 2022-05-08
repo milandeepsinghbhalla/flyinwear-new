@@ -2,7 +2,7 @@
     <div class="container-fluid" style="margin-top:7.5em;">
         <vendor-registration-info-component></vendor-registration-info-component>
         <login-to-continue-component v-show="user.id==-1"></login-to-continue-component>
-        <vendor-registration-form-component ></vendor-registration-form-component>
+        <vendor-registration-form-component v-show="user.id!=-1" ></vendor-registration-form-component>
     </div>
 </template>
 

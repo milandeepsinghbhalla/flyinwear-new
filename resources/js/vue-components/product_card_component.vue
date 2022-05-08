@@ -203,9 +203,9 @@ export default{
                   }
                   localStorage.setItem('cb_cart',JSON.stringify(this.cart));
                    
-                   setTimeout(function(){
+                   
                        swal("product added to cart"," ","success");
-                   },100000)
+                   
                   
              
           }

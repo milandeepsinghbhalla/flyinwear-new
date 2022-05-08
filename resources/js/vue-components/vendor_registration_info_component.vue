@@ -7,8 +7,8 @@
                     then you can join as a vendor and start selling your products on our website</p>
 
                 <p class="card-text">You just have to add your product , and we will provide you customized dashboard
-                    to manage your online shop and take care of all the trouble starting from shipping
-                    of the product to delivery , online payment and all sales information.
+                    to manage your online shop and take care of all the trouble like managing stock
+                    and give customers all features like filters searching and wishlist.
                 </p>
 
                 <p class="card-text">

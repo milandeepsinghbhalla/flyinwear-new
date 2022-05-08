@@ -1,7 +1,7 @@
 <template>
     <nav id="my_nav" class="navbar navbar-expand-lg navbar-dark bg-dark py-0 fixed-top"  >
         <all-products-offcanvas-component></all-products-offcanvas-component>
-		 <a class="navbar-brand m-0" href="#"><img src="storage/logo.png" id="logo"></a>
+		 <router-link class="navbar-brand m-0" to="/"><img src="storage/logo.png" id="logo"></router-link>
 		 <!-- <ul class="navbar-nav m-0 cart-ul-mobile">
 				 <li class="nav-item">
 		        <router-link class="nav-link" to="/wishlist"><i class="fas fa-heart"><sup class="sup-no">{{wishlist.length}}</sup></i></router-link>
@@ -22,7 +22,10 @@
 	    	<span class="navbar-toggler-icon"></span>
 	 	 </button>
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-             <ul class="navbar-nav ml-auto">
+             <ul class="navbar-nav w-100">
+				 <li class="nav-item flex-grow-1 ml-2">
+					 <search-component></search-component>
+				 </li>
                 <li class="nav-item">
 			      <a class="nav-link" href="#" data-toggle="collapse" data-target="#navbarSupportedContent">Hi {{this.$current_user.name.split(' ')[0]}}</a>
 		   	 	</li>
@@ -31,6 +34,14 @@
 		   	 	</li>
                 <li class="nav-item">
 			      <router-link class="nav-link" to="/" data-toggle="collapse" data-target="#navbarSupportedContent">Home</router-link>
+
+		   	 	</li>
+				<li class="nav-item">
+			      <router-link class="nav-link" to="/orders" data-toggle="collapse" data-target="#navbarSupportedContent">Orders</router-link>
+
+		   	 	</li>
+				<li class="nav-item">
+			      <router-link class="nav-link" v-if="this.$current_user.role!='vendor' && this.$current_user.role!='admin_vendor'" to="/vendor-registration" data-toggle="collapse" data-target="#navbarSupportedContent">Be a Vendor</router-link>
 
 		   	 	</li>
 				 <li class="nav-item cart-ul-laptop">
@@ -52,11 +63,11 @@
 			    <li v-else class="nav-item">
 			    	<a href="#" v-on:click="logout()" class="nav-link" data-toggle="collapse" data-target="#navbarSupportedContent">Logout</a>
 			    </li>
-				<li class="nav-item" v-if="(this.$current_user.role=='admin' || this.$current_user.role=='admin_vendor')">
-			       <router-link class="nav-link" to="/admin">Admin</router-link>
+				<li class="nav-item"  v-if="(this.$current_user.role=='admin' || this.$current_user.role=='admin_vendor')">
+			       <router-link data-toggle="collapse" data-target="#navbarSupportedContent" class="nav-link" to="/admin">Admin</router-link>
 			    </li>
-				<li class="nav-item" v-if="(this.$current_user.role=='vendor' || this.$current_user.role=='admin_vendor')">
-			       <router-link class="nav-link" to="/vendor">vendor</router-link>
+				<li class="nav-item"  v-if="(this.$current_user.role=='vendor' || this.$current_user.role=='admin_vendor')">
+			       <router-link data-toggle="collapse" data-target="#navbarSupportedContent" class="nav-link" to="/vendor">vendor</router-link>
 			    </li>
              </ul>
          </div>
@@ -64,6 +75,7 @@
 </template>
 <script>
 import all_products_offcanvas_component from "./all_products_offcanvas_component.vue";
+import search_component from "./search_component.vue"
     export default{
        
         props:['cart','current_user',"wishlist"],
@@ -90,6 +102,8 @@ import all_products_offcanvas_component from "./all_products_offcanvas_component
 				 }
 				 localStorage.removeItem("current_user");
 				 localStorage.removeItem("cb_cart");
+				 
+				 location.replace("/#/");
 				 location.reload();
              },
              openNav(){
@@ -97,7 +111,8 @@ import all_products_offcanvas_component from "./all_products_offcanvas_component
              }
         },
         components:{
-            "all-products-offcanvas-component": all_products_offcanvas_component
+            "all-products-offcanvas-component": all_products_offcanvas_component,
+            "search-component": search_component
         }
     
     

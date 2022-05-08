@@ -22,7 +22,9 @@
 
                          <div class="form-group">
                             <label for="brand">brand</label>
-                            <input type="text" v-model="cont_add_p.brand" class="form-control" id="brand" placeholder="brand">
+                            <select class="form-control" v-model="cont_add_p.brand"  id="brand">
+                              <option v-for="brand in brands" :key="brand" :value="brand">{{brand}}</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -135,8 +137,10 @@
         stock_3xl: 0,
         stock_4xl: 0,
         stock_5xl: 0,
-        weight: 0.8
+        weight: 0.8,
+        
       },
+      brands: ["urbano","puma","Zara","Adidas"," Nike","Allen Solly","Levi’s","Park Avenue","Mufti","Pepe Jeans","Peter England","Louis Philippe","Raymond","others"],
       img_no: 1,
       add_other: 0,
       img_link: {
@@ -227,7 +231,7 @@
                 let words = [];
                 words = this.cont_add_p.keywords.split(",");
                 words.forEach(element => {
-                  element.trim();
+                  element = element.trim();
                 });
                 words = JSON.stringify(words);
                 this.form_data.set('keywords',words);

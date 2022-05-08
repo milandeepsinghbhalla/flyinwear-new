@@ -49,11 +49,30 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 col-11 bg-creame text-dark  p-0 card shadow-lg m-4">
                  <div class="card-header display-5 text-light text-center bg-dark"><h3>Features...!!</h3></div>
-                  <div class="card-body p-4">
-                <span v-for="(item, prop) in product.features" :key="prop" ><span style="width: 115px;display: inline-block;">{{prop}} :</span> {{item}}<br></span>
+                  <div class="card-body p-2 p-lg-3">
+                <div class="row m-0" v-for="(item, prop) in product.features" :key="prop" ><div class="col-12 font-weight-bold">{{prop}} :</div> <div class="col-12 ml-4">{{item}}</div></div>
                   </div>
             </div>
         </div>
+         <div class="row justify-content-center">
+            <div class="col-lg-6 col-11 bg-creame text-dark  p-0 card shadow-lg m-4">
+                <div class="card-header display-5 text-light text-center bg-dark"><h3>Reviews...!!</h3>
+
+                </div>
+                <div class="card-body p-4">
+                    <div class="col-12 card bg-dark text-light shadow-lg my-3 p-0" v-for="review in reviews" :key="review.id">
+                        <div class="card-header bg-light text-dark"><h5><span style="font-size:0.7em;"><i class="fas fa-user mr-2"></i>{{review.review_data.email}}</span></h5>
+                        <h6 style="font-size:0.9em;">uploaded at {{new Date(review.review_data.posted_on).toDateString()}}</h6>
+                        </div>
+                        <div class="card-body p-3">
+                            <h3 class="text-purple"><i class="fas fa-star" v-for="n in parseInt(review.review_data.rating)" :key="n"></i></h3>
+                            <p class="card-text">{{review.review_data.review_text}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+
     </div>
             
 
@@ -78,6 +97,7 @@ export default{
                 chk: true,
                 msg: "Add to cart"
             },
+            reviews: []
         }
     },
     props:["current_user","all_products","cart","can_add_to_cart","items_in_cart"],
@@ -251,6 +271,7 @@ export default{
                       })
                   }
                   localStorage.setItem('cb_cart',JSON.stringify(this.cart));
+                  swal("product added to cart...!!"," ","success");
             }
             else{
               swal("login first before adding to cart"," ","warning");
@@ -292,7 +313,11 @@ export default{
                       })
                   }
                   localStorage.setItem('cb_cart',JSON.stringify(this.cart));
+                  swal("Product added to cart..!!"," ","success")
             } 
+          }
+          else{
+              swal("color not selected...!!"," ","warning");
           }
          }
 
@@ -302,6 +327,7 @@ export default{
         }
     },
     async created(){
+        this.$scrollTo('#my_nav');
         let key = this.$route.params.key;
         let arr = key.split("-");
         this.category = arr[0]
@@ -320,6 +346,17 @@ export default{
         this.product = this[this.t_name].find(element=>element.id==this.id);
         // this.product.description = "Classic capery\nWith Casual Look\n#MADE IN INDIA\n#Handmade\nSlide to view size chart"
         this.product.features = JSON.parse(this.product.features)
+        await this.$http.post('/api/get-reviews',{pid: this.product.id}).then(res=>{
+            console.log("reviews = ",res.body);
+            if(res.body.reviews.length>0){
+            this.reviews = res.body.reviews;
+            this.reviews.forEach(review=>{
+                review.review_data = JSON.parse(review.review_data);
+            }) 
+    
+            }
+        })
+
     }
 }
 </script>

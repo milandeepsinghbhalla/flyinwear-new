@@ -73,4 +73,31 @@ class vendorController extends Controller
             return ["orders"=> $empty_array];
         }
     }
+    public function update_vendor_order_status(Request $req){
+        $vendor = vendor::find($req->id);
+         $orders= json_decode($vendor->orders);
+        for($i=0;count($orders);$i++){
+            if($orders[$i]->order_id==$req->order_id){
+                $orders[$i]->order_status = $req->order_status;
+                break;
+            }
+        }
+        $updated_orders = json_encode($orders);
+        $vendor->orders = $updated_orders;
+        $vendor->save();
+        $ids = explode("_",$req->order_id);
+        $uid = $ids[0];
+        $user = user::find($uid);
+        $user_orders = json_decode($user->orders);
+        for($i=0;count($user_orders);$i++){
+            if($user_orders[$i]->order_id==$req->order_id){
+                $user_orders[$i]->order_status = $req->order_status;
+                break;
+            }
+        }
+        $updated_user_orders = json_encode($user_orders);
+        $user->orders = $updated_user_orders;
+        $user->save();
+        return["status"=>1,"msg"=>"status changed successfully..!!"];
+    }
 }

@@ -8,6 +8,8 @@ use App\Http\Controllers\shiprocketController;
 use App\Http\Controllers\vendorController;
 use App\Http\Controllers\shippingController;
 use App\Http\Controllers\mailController;
+use App\Http\Controllers\cashfreeController;
+use App\Http\Controllers\reviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +60,14 @@ Route::post('update-vendor-order',[vendorController::class,'update_vendor_order'
 Route::post('get-vendor-orders',[vendorController::class,'get_vendor_orders']);
 Route::post('edit-order-stock',[productcontroller::class,'edit_order_stock']);
 Route::post('send-order-mail',[mailController::class,'send_order_mail']);
+Route::post('pay-online',[cashfreeController::class,'pay_online']);
+Route::post('check-payment',[cashfreeController::class,'check_payment']);
+Route::post('update-vendor-order-status',[vendorController::class,'update_vendor_order_status']);
+
+Route::post('post-review',[reviewController::class,'post_review']);
+Route::post('check-review',[reviewController::class,'check_review']);
+Route::post('get-reviews',[reviewController::class,'get_reviews']);
+
 
 
 

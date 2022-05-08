@@ -43,6 +43,10 @@ export default{
             "edit-stock-component": edit_stock_component,
             "product-panel": product_panel,
             "orders-panel": orders_panel
+        },
+        created(){
+                    this.$scrollTo("#my_nav");
+
         }
     }
 </script>

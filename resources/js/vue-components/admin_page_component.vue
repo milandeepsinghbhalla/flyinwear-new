@@ -8,6 +8,10 @@ import admin_panel_componentVue from './admin_panel_component.vue'
     export default{
         components:{
             "admin-panel-component": admin_panel_componentVue
+        },
+        created(){
+                    this.$scrollTo("#my_nav");
+
         }
     }
 </script>

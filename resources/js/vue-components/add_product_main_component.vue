@@ -37,8 +37,8 @@
                     t_name: "",
                     stock: ""
                 },
-                t_names: ['shirts','round_necks','polos','sweat_shirts','kurtas','jeans','joggers','caperies','shorts',"desktops"],
-                others: ["desktops"]
+                t_names: ['shirts','round_necks','polos','sweat_shirts','kurtas','jeans','joggers','caperies','shorts','ethinics',"w_tops","w_sweat_shirts","w_kurtas","w_jeans","w_joggers","w_caperies","w_shorts","w_ethinc","desktops","laptops","mobiles"],
+                others: ["desktops","laptops","mobiles"]
                 
 
             }

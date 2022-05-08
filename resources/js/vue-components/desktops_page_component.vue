@@ -42,7 +42,10 @@ export default{
         'filters': filters
     },
     props: ["desktops","wishlist","all_products","cart","items_in_cart"],
-    
+    created(){
+                this.$scrollTo("#my_nav");
+
+    }
 
 }
 </script>

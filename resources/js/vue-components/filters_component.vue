@@ -41,9 +41,9 @@
                 </span>
                 
             </div>
-            <div class="text-center">
-                <button class="btn btn-dark btn-md mr-3">close</button>
-                <button class="btn orange btn-md" v-on:click="filter_out">Apply</button>
+            <div class="text-center mb-4">
+                <button class="btn btn-dark btn-md mr-3" v-on:click="close_side_filter()">close</button>
+                <button class="btn bg-creame btn-md" v-on:click="filter_out">Apply</button>
             </div>
         </div>
     </div>    
@@ -58,7 +58,8 @@ export default{
                 selected_data: {},
                 filter_result: [],
                 json_chk: 0,
-                clothing_products: ["joggers","shirts","round_necks",'polos','sweat_shirts','kurtas','jeans','caperies','shorts']
+                clothing_products: ["joggers","shirts","round_necks",'polos','sweat_shirts','kurtas','jeans','caperies','shorts','ethinics','w_tops','w_sweat_shirts','w_ethinics','w_jeans','w_kurtas','w_joggers','w_caperies','w_shorts'],
+                other_products: ["laptops","mobiles"]
             }
         },
         props: ["filter_data","parent_data","t_name"],
@@ -548,6 +549,28 @@ export default{
                         localStorage.setItem('filter_data',filter_data)
                         this.$router.push({name:'filter-result'});
                    
+                }
+                if(this.other_products.includes(this.t_name)){
+                    let data = this.parent_data;
+                    let current_filter = [];
+                    for(let feature_key in this.selected_data){
+                        if(this.selected_data[feature_key]){
+                            current_filter = [];
+                            this.selected_data[feature_key].forEach(value=>{
+                                for(let i=0;i<data.length;i++){
+                                    if(data[i].features[feature_key].toLowerCase()==value.toLowerCase()){
+                                        if(!current_filter.includes(data[i]))
+                                            current_filter.push(data[i]);
+                                    }
+                                }
+                            })
+                            data = current_filter; 
+                        }
+                    }
+
+                        let filter_data = JSON.stringify(data);
+                        localStorage.setItem('filter_data',filter_data)
+                        this.$router.push({name:'filter-result'});
                 }
             }
         }

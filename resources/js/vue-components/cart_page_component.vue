@@ -43,6 +43,10 @@ import login_to_continue_component from './login_to_continue_component.vue'
         components: {
             "cart-card-component": cart_card_component,
               "login-to-continue-component"  : login_to_continue_component
+        },
+        created(){
+                    this.$scrollTo("#my_nav");
+
         }
     }
 </script>

@@ -378,7 +378,7 @@
                 let words = [];
                 words = this.cont_add_p.keywords.split(",");
                 words.forEach(element => {
-                  element.trim();
+                  element = element.trim();
                 });
                 words = JSON.stringify(words);
                 this.form_data.set('keywords',words);
@@ -440,6 +440,187 @@
     if(localStorage.getItem('main_add_data')){
       this.main_add_data = JSON.parse(localStorage.getItem('main_add_data'));
     }
+    if(this.main_add_data.t_name == 'laptops'){
+      let props = {
+        max_clock_speed: {
+          type: "number"
+        },
+        clock_speed:{
+        type: "number",
+        unit: "GHz"
+      },
+      processor_company:{
+        type: "select",
+        options: ["Intel","AMD","others"]
+      },
+      processor_base:{
+        type: "select",
+        options: ["Intel Celeron","Intel Pentium","Intel Core i3","Intel Core i5","Intel Core i7","Intel Core i9","AMD Ryzen 3","AMD Ryzen 5","AMD Ryzen 7","others"]
+      },
+      processor: {
+        type: "text"
+      },
+      generation:{
+        type: "select",
+        options: ["1st gen","2nd gen","3rd gen","4th gen","5th gen","6th gen","7th gen","8th gen","9th gen","10th gen","11th gen","12th gen"]
+      },
+      os_type:{
+        type: "select",
+        options: ["Microsoft Windows","Mac OS","Linux","others"],
+      },
+      os_parent:{
+        type: "select",
+        options: ["Windows 7","windows 8","windows 10","windows 11","mac os","Ubuntu","Fedora","Debian","Kali","others"]
+      },
+      os_name:{
+        type: "text",
+      },
+      ms_office:{
+        type: "select",
+        options: ["yes","no"]
+      },
+      ms_office_version:{
+        type: "text"
+      },
+      ram:{
+        type: "number",
+        units: "gb"
+      },
+      ram_range:{
+        type: "select",
+        options: ["1gb","2gb - 4gb","4.1gb - 6gb","6.1gb - 8gb","8.1gb - 10gb","10.1gb - 12gb","12.1gb - 16gb","16gb +"]
+      },
+      ram_type:{
+        type: "select",
+        options: ["DDR2","DDR3","DDR4","others"]
+      },
+      hardisk:{
+        type: "text"
+      },
+      hardisk_size_range:{
+        type: "select",
+        options: ["<= 256gb","257gb - 512gb","513gb-1tb","1.1tb-1256gb","1257gb-1512gb","1513gb-2tb","2.1tb-2512gb","2512gb +"]
+      },
+       hardisk_type:{
+        type: "select",
+        options: ["HDD","SSD","Hybrid"]
+      },
+      graphic_card:{
+        type: "text"
+      },
+      graphic_card_size:{
+        type: "select",
+        options: ["1gb","2gb","4gb","6gb","8gb","8gb +"],
+      },
+      graphic_card_type:{
+        type: "select",
+        options: ["integrated","dedicated"]
+      },
+      screen: {
+        type: "text",
+
+      },
+      screen_size_range: {
+        type: "select",
+        options: ["11-13 inches","13.1 - 14 inches","14.1 - 15 inches","15.1 - 16 inches","16.1 - 17 inches","17 + inches"]
+      },
+      battery: {
+        type: "text"
+      },
+      battery_backup_range:{
+        type: "select",
+        options: ["3 - 5 hrs","5.1 - 7 hrs","7.1 - 9 hrs","9.1 - 12 hrs","12 + hrs"]
+      },
+      company:{
+        type: "select",
+        options: ["Dell","HP","Acer","Lenovo","Apple","others"]
+      },
+      webcam:{
+        type: "select",
+        options: ["yes","no"]
+      },
+      sound:{
+        
+        type: "text"
+      },
+      dvd_drive:{
+         type: "select",
+        options: ["yes","no"]
+      },
+      network: {
+        type: "text"
+      },
+      warranty:{
+        type: "text"
+      },
+      ports: {
+        type: "text"
+      },
+      additional_info: {
+        type: "textbox"
+      },
+      contains: {
+        type: "textbox"
+      }
+    }
+    this.props = props
+    }
+    if(this.main_add_data.t_name == 'mobiles'){
+      let props = {
+        company:{
+          type: "select",
+          options: ["Xiaomi","Samsung","Vivo","Oppo","Apple","Realme","OnePlus","Poco","Nokia","others"]
+        },
+        ram:{
+          type: "select",
+          options: ["1gb","2gb","3gb","4gb","6gb","8gb","10gb","12gb","16gb","16gb +"]
+        },
+        color: {
+          type: "select",
+          options: ["black","grey","gold","pink gold","green","red","orange","white","blue","yellow","pink","silver","purple","brown","other"]
+        },
+        rom: {
+          type: "select",
+          options: ["16gb","32gb","64gb","128gb","256gb","512gb","512gb +"]
+        },
+        camera_mp_highest: {
+          type: "select",
+          options: ["8mp","12mp","16mp","32mp","48mp","64mp","72mp","128mp","128mp +"]
+        },
+        display: {
+          type: "select",
+          options: ["FHD","Amoled","Super Amoled","others"]
+        },
+        size: {
+          type: "text"
+        },
+        warranty: {
+          type: "text"
+        },
+        charger_watt: {
+          type: "text"
+        },
+        battery: {
+          type: "textbox"
+        },
+        sound: {
+          type: "textbox"
+        },
+        network: {
+          type: "textbox"
+        },
+        processor: {
+          type: "textbox"
+        },
+        additional_info: {
+          type: "textbox"
+        },
+        contains: {
+          type: "textbox"
+        }
+      }
+      this.props = props
+    }
     switch(this.main_add_data.t_name){
         case "desktops":
             this.cont_add_p.features={
@@ -480,11 +661,16 @@
                 
             }
             break;
+        
+    }
+    for(let prop in this.props){
+      this.cont_add_p.features[prop] = ""
     }
 
   }
   
     
   }
+    
     
 </script>

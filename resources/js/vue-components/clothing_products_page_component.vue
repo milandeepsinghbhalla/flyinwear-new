@@ -23,7 +23,7 @@ export default{
                 color: ["Blue","red","green","brown","black","grey","pink","yellow","crimson","orange","purple","white","chocolate","multi-color"],
                 size: ["S","M","L","XL","2XL","3XL","4XL","5XL"],
                 clothing_price: ["0 - 100","101 - 200","201 - 300","301 - 400","401 - 500","501 - 700","701 - 900","901 - 1100","1100 - 1500","1500 - 1900","1900 - 2300","2300+"],
-                brand: ["ZARA" , "Urbano", "nike","puma","adidas","others"]
+                brand: ["urbano","puma","Zara","Adidas"," Nike","Allen Solly","Levi’s","Park Avenue","Mufti","Pepe Jeans","Peter England","Louis Philippe","Raymond"],
 
             },
             t_name: "",
@@ -32,9 +32,15 @@ export default{
         }
     },
     created(){
+                this.$scrollTo("#my_nav");
+
         
         this.t_name = this.$route.params.t_name
-        this.p_name =  this.t_name.replace('_'," ");
+        this.p_name =  this.t_name.replaceAll('_'," ");
+        if(this.p_name.charAt(0)=='w'){
+            this.p_name = this.p_name.slice(1)
+            this.p_name = 'women' + this.p_name;
+        }
         this.$http.post('api/get-products',{t_name: this.t_name}).then( res=>{
             console.log("req_products:-  ",res.body);
             

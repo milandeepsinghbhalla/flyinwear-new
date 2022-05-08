@@ -57,31 +57,67 @@
                 login_data: {
                     email: "",
                     password: "",
-                    cart: ""
-                }
+                    cart: "",
+                    
+                },
+                mp_clicked: 0
+
             }
         },
         props: ["cart","wishlist"],
         methods:{
             login(){
                 this.login_data.cart = JSON.stringify(this.cart);
-                this.$http.post("/api/login-user",this.login_data).then(res=>{
-                    console.log(res.body);
-                    if(res.body.status == 1){
-                        this.$current_user = res.body.current_user;
-                        this.cart = JSON.parse(this.$current_user.cart);
-                        if(JSON.parse(this.$current_user.wishlist))
-                        this.wishlist = JSON.parse(this.$current_user.wishlist);
-                        localStorage.setItem("cb_cart",JSON.stringify(this.cart));
-                        localStorage.setItem("current_user",JSON.stringify(this.$current_user));
-                        
-                        location.replace("/#/")
-                        location.reload();
+                let chk = 0;
+                if(this.login_data.password.length>0&&this.login_data.email.length>0){
+                    const validateEmail = (email) => {
+                        return String(email)
+                            .toLowerCase()
+                            .match(
+                            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                            );
+                    };
+                    if(validateEmail(this.login_data.email)){
+                        chk = 1;
                     }
                     else{
-                        swal(res.body.msg," ","error");
+                        swal("email format wrong...!!"," ","error");
                     }
-                })
+                }
+                else{
+                    swal("all feilds are required"," ","warning");
+                }
+                if(chk ==1){
+                    this.$http.post("/api/login-user",this.login_data).then(res=>{
+                        console.log(res.body);
+                        if(res.body.status == 1){
+                            this.$current_user = res.body.current_user;
+                            this.cart = JSON.parse(this.$current_user.cart);
+                            if(JSON.parse(this.$current_user.wishlist))
+                            this.wishlist = JSON.parse(this.$current_user.wishlist);
+                            localStorage.setItem("cb_cart",JSON.stringify(this.cart));
+                            localStorage.setItem("current_user",JSON.stringify(this.$current_user));
+                            
+                            location.replace("/#/")
+                            location.reload();
+                        }
+                        else{
+                            swal(res.body.msg," ","error");
+                        }
+                    })
+                }
+            },
+            show_pass(id){
+                let inp =  document.getElementById(id);
+                console.log(inp);
+                if(this.mp_clicked == 0){
+                this.mp_clicked=1;
+                inp.type = 'text';
+                }
+                else if(this.mp_clicked>0){
+                this.mp_clicked=0;
+                inp.type = 'password'
+                }
             }
         }
     }

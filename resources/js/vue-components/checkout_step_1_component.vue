@@ -159,6 +159,8 @@ export default{
     },
     props:["sub_orders"],
     created(){
+                this.$scrollTo("#my_nav");
+
         let obj = {
             id: this.$current_user.id
         }
@@ -274,15 +276,36 @@ export default{
                  swal("Alternate Number not filled...!!"," ","warning");
             }
             if(chk ==0){
-                let customer_order_data = {
-                    
-                    selected_address: this.selected_address,
-                    number: this.customer_data.number,
-                    alternate_number: this.customer_data.alternate_number
+                let chk_number = 0;
+                let chk_alt_number = 0;
+                if(this.customer_data.number.length==10){
+                    chk_number = 1;
                 }
-                console.log(customer_order_data);
-                localStorage.setItem('customer_delivery_data',JSON.stringify(customer_order_data));
-                this.$router.push('/checkout-step-2');
+                else{
+                    swal("number must be of 10 digits...!!"," ","error")
+                }
+                if(this.customer_data.number!=this.customer_data.alternate_number){
+                    if(this.customer_data.alternate_number.length==10){
+                        chk_alt_number = 1;
+                    }
+                    else{
+                        swal("Alternate number must be of 10 digits...!!"," ","error")
+                    }
+                }
+                else{
+                    swal("Number and alternate number can't be same"," ","error")
+                }
+                if(chk_number==1&&chk_alt_number==1){
+                    let customer_order_data = {
+                        
+                        selected_address: this.selected_address,
+                        number: this.customer_data.number,
+                        alternate_number: this.customer_data.alternate_number
+                    }
+                    console.log(customer_order_data);
+                    localStorage.setItem('customer_delivery_data',JSON.stringify(customer_order_data));
+                    this.$router.push('/checkout-step-2');
+                }
             }
 
         }

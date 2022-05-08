@@ -2,7 +2,9 @@
     <div class="container" style="margin-top:7.5em;">
         <h3 class="text-center mb-4">Filter Results...!!</h3>
         <div class="row justify-content-center">
-            
+            <div class="col-12 text-center">
+                <button class="btn btn-dark btn-lg">{{filter_data.length}} items in filter results</button>
+            </div>
             <product-card-component v-for="product in filter_data" :all_products="all_products" :items_in_cart="items_in_cart" :cart="cart" :wishlist="wishlist" v-bind:key="product.key" v-bind:product="product"></product-card-component>
         </div>
     </div>
@@ -20,6 +22,8 @@ export default {
     },
     props: ["all_products","items_in_cart","cart","wishlist"],
     created(){
+                this.$scrollTo("#my_nav");
+
         if(localStorage.getItem('filter_data')){
             this.filter_data = JSON.parse(localStorage.getItem('filter_data'));
         }

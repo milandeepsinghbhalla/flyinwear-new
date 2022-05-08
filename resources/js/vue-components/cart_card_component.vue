@@ -17,7 +17,7 @@
                                     
                                         
 
-                                            <button data-toggle="modal"  v-on:click="detail_clicked(product.key)" class="btn orange btn-sm mr-1 in-mob-text-card">Details</button>
+                                            <button data-toggle="modal"  v-on:click="details_clicked(product.key)" class="btn orange btn-sm mr-1 in-mob-text-card">Details</button>
                                             <button class="btn btn-danger btn-sm m-0 in-mob-text-card mob-button" v-on:click="remove_from_cart(product.cart_id)"><i class="fas fa-trash-alt in-mob-text-card"></i></button>
                                             <button class="btn  btn-light btn-sm m-0 in-mob-text-card mob-button" v-on:click="remove_one(product.cart_id)" v-show="product.no_in_cart>1">-</button>
                                             <button class="btn btn-light btn-sm in-mob-text-card mob-button">{{product.no_in_cart}}</button>
@@ -190,6 +190,7 @@ export default{
              localStorage.setItem('cb_cart',JSON.stringify(this.cart));
         },
         details_clicked(key){
+            console.log("key = ",key);
             location.assign("/#/product-details/"+key)
         }
      },

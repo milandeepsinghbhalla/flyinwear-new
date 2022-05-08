@@ -117,35 +117,70 @@ export default{
                     }
             }
             if(check==1){
-                let address= {
-                    address_line_1: this.vendor_registration_data.address_line_1,
-                    address_line_2: this.vendor_registration_data.address_line_2,
-                    city: this.vendor_registration_data.city,
-                    state: this.vendor_registration_data.state,
-                    landmark: this.vendor_registration_data.landmark,
-                    pincode: this.vendor_registration_data.pincode
+                let chk_number = 0;
+                let chk_alt_number = 0;
+                let chk_email = 0;
+                if(this.vendor_registration_data.number.length==10){
+                    chk_number = 1
                 }
-                let vendor_address_book = [address]
-                let vendor_data = {
-                vid: this.user.id,
-                name: this.vendor_registration_data.name,
-                vendor_email: this.vendor_registration_data.vendor_email,
-                shop_name: this.vendor_registration_data.shop_name,
-                vendor_phn_no: this.vendor_registration_data.number,
-                vendor_alternate_phn_no: this.vendor_registration_data.alternate_number,
-                vendor_address_book: JSON.stringify(vendor_address_book)
+                else{
+                    swal("Number must be of 10 digits"," ","warning");
                 }
-                console.log("vendor data = ",vendor_data);
-                this.$http.post("/api/register-vendor",vendor_data).then(res=>{
-                    console.log("user = ",res.body.user);
-                    console.log("vendor = ",res.body.vendor)
-                    if(res.body.status == 1){
-                        swal(res.body.msg," ","success")
+                if(this.vendor_registration_data.alternate_number!=this.vendor_registration_data.number){
+                    if(this.vendor_registration_data.alternate_number.length==10){
+                        chk_alt_number = 1;
                     }
                     else{
-                        swal(res.body.msg," ","error");
+                        swal("alternate number must be of 10 digits..!!"," ","warning");
                     }
-                })
+                }
+                else{
+                    swal("Number and alternate number can't be same..!!"," ","warning");
+                }
+                const validateEmail = (email) => {
+                          return String(email)
+                              .toLowerCase()
+                              .match(
+                              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                              );
+                      };
+                if(validateEmail(this.vendor_registration_data.email)){
+                   chk_email =1; 
+                }
+                else{
+                    swal("Email format wrong...!!"," ","error");
+                }
+                if(chk_number==1&&chk_alt_number==1&&chk_email==1){
+                    let address= {
+                        address_line_1: this.vendor_registration_data.address_line_1,
+                        address_line_2: this.vendor_registration_data.address_line_2,
+                        city: this.vendor_registration_data.city,
+                        state: this.vendor_registration_data.state,
+                        landmark: this.vendor_registration_data.landmark,
+                        pincode: this.vendor_registration_data.pincode
+                    }
+                    let vendor_address_book = [address]
+                    let vendor_data = {
+                    vid: this.user.id,
+                    name: this.vendor_registration_data.name,
+                    vendor_email: this.vendor_registration_data.vendor_email,
+                    shop_name: this.vendor_registration_data.shop_name,
+                    vendor_phn_no: this.vendor_registration_data.number,
+                    vendor_alternate_phn_no: this.vendor_registration_data.alternate_number,
+                    vendor_address_book: JSON.stringify(vendor_address_book)
+                    }
+                    console.log("vendor data = ",vendor_data);
+                    this.$http.post("/api/register-vendor",vendor_data).then(res=>{
+                        console.log("user = ",res.body.user);
+                        console.log("vendor = ",res.body.vendor)
+                        if(res.body.status == 1){
+                            swal(res.body.msg," ","success")
+                        }
+                        else{
+                            swal(res.body.msg," ","error");
+                        }
+                    })
+                }
             }
         }
     }

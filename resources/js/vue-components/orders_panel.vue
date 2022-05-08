@@ -27,6 +27,7 @@ export default{
         }
         this.$http.post('/api/get-vendor-orders',vendor_data).then(res=>{
             this.orders = JSON.parse(res.body.orders);
+            this.orders.reverse();
         })
     }
     
