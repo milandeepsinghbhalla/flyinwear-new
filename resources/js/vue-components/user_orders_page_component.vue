@@ -8,6 +8,7 @@
                 <button class="btn btn-dark btn-lg">No Orders Yet</button>
             </div>
         </div>
+       
         <div class="row justify-content-center">
             <show-orders-component v-for="order in orders" :order="order" :key="order.order_id" ></show-orders-component>
                  
@@ -18,6 +19,7 @@
 import display_order_items_component from './display_order_items_component.vue';
 import login_to_continue_component from './login_to_continue_component.vue';
 import show_orders_component from './show_orders_component.vue';
+ 
 
  export default{
      
@@ -25,6 +27,10 @@ import show_orders_component from './show_orders_component.vue';
          return {
              current_user: {},
              orders: [],
+             dates: {
+                 from: "",
+                 to: ""
+             }
          }
      },
      created(){

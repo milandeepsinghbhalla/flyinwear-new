@@ -144,7 +144,11 @@ class productcontroller extends Controller
     public function get_stock(Request $req){
         $id = (int) $req->id;
         $rs1 = DB::table("all_products")->where('id',"=",$id)->first();
+        if(!$rs1)
+            return["msg"=>"no product with that id","status"=>0];
         $rs2 = DB::table($rs1->t_name)->where('id',"=",$id)->first();
+        if($rs2->vid!=$req->vid)
+            return["msg"=>"The product with that id doesn't belong to you","status"=>0];
         $current_stock = new stdClass();
         $current_stock->stock = $rs2->stock;
         if(property_exists($rs2, 'stock_s')){
@@ -157,7 +161,7 @@ class productcontroller extends Controller
             $current_stock->stock_4xl = $rs2->stock_4xl;
             $current_stock->stock_5xl = $rs2->stock_5xl;
         }
-        return ["current_stock"=> $current_stock];
+        return ["current_stock"=> $current_stock,"status"=>1];
     }
     public function edit_stock(Request $req){
         $id = (int) $req->id;

@@ -2867,14 +2867,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 obj = {
-                  id: _this.edit.id
+                  id: _this.edit.id,
+                  vid: _this.$current_user.id
                 };
                 console.log("obj  ", obj);
                 _context.next = 4;
                 return _this.$http.post("/api/get-stock", obj).then(function (res) {
                   console.log(res.body);
-                  _this.edit.current_stock = res.body.current_stock;
-                  _this.edit.show_stock = 1;
+
+                  if (res.body.status == 1) {
+                    _this.edit.current_stock = res.body.current_stock;
+                    _this.edit.show_stock = 1;
+                  } else {
+                    swal(res.body.msg, " ", "error");
+                  }
                 });
 
               case 4:
@@ -4017,7 +4023,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _show_orders_component_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./show_orders_component.vue */ "./resources/js/vue-components/show_orders_component.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _show_orders_component_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./show_orders_component.vue */ "./resources/js/vue-components/show_orders_component.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4032,24 +4056,73 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       current_user: {},
-      orders: []
+      orders: [],
+      original_orders: [],
+      dates: {
+        from: "",
+        to: ""
+      }
     };
   },
   components: {
-    "show-orders-component": _show_orders_component_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    "show-orders-component": _show_orders_component_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   created: function created() {
     var _this = this;
 
-    this.current_user = this.$current_user;
-    var vendor_data = {
-      id: this.current_user.id
-    };
-    this.$http.post('/api/get-vendor-orders', vendor_data).then(function (res) {
-      _this.orders = JSON.parse(res.body.orders);
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var vendor_data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _this.current_user = _this.$current_user;
+              vendor_data = {
+                id: _this.current_user.id
+              };
+              _context.next = 4;
+              return _this.$http.post('/api/get-vendor-orders', vendor_data).then(function (res) {
+                _this.orders = JSON.parse(res.body.orders);
 
-      _this.orders.reverse();
-    });
+                _this.orders.reverse();
+              });
+
+            case 4:
+              _this.original_orders = _this.orders;
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  methods: {
+    filter_dates: function filter_dates() {
+      if (this.dates.from.length != 0 && this.dates.to.length != 0) {
+        var start = new Date(this.dates.from).getTime();
+        var end = new Date(this.dates.to).getTime();
+        console.log("start = ", start);
+        console.log("end = ", end);
+
+        if (start <= end) {
+          this.orders = this.original_orders;
+          var filtered_orders = [];
+          this.orders.forEach(function (order) {
+            var arr = order.order_id.split('_');
+            var time = parseInt(arr[2]);
+            if (time >= start && time <= end) filtered_orders.push(order);
+          });
+          this.orders = filtered_orders;
+          swal("filter applied successfully...!!", " ", "success");
+        } else {
+          swal("from date must be before or same than to date", " ", "error");
+        }
+      } else {
+        swal("select both from and to dates first", " ", "warning");
+      }
+    }
   }
 });
 
@@ -5887,6 +5960,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -5894,7 +5968,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       current_user: {},
-      orders: []
+      orders: [],
+      dates: {
+        from: "",
+        to: ""
+      }
     };
   },
   created: function created() {
@@ -5988,7 +6066,8 @@ __webpack_require__.r(__webpack_exports__);
         show_orders_pannel: 0,
         add_product: 0,
         show_aopc: 0,
-        show_acpc: 0
+        show_acpc: 0,
+        show_edit: 0
       }
     };
   },
@@ -6043,13 +6122,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["controls"],
   methods: {
+    show_edit_stock: function show_edit_stock() {
+      if (this.$router.route != "/vendor") this.$router.push('/vendor');
+      this.controls.show_product_pannel = 0;
+      this.controls.show_orders_pannel = 0;
+      this.controls.show_edit = 1;
+    },
     show_orders_pannel: function show_orders_pannel() {
-      this.$router.push('/vendor-orders');
+      if (this.$router.route != "/vendor-orders") this.$router.push('/vendor-orders');
       this.controls.show_product_pannel = 0;
       this.controls.show_orders_pannel = 1;
+      this.controls.show_edit = 0;
     },
     show_product_pannel: function show_product_pannel() {
-      this.$router.push('/vendor');
+      if (this.$router.route != "/vendor") this.$router.push('/vendor');
+      this.controls.show_edit = 0;
       this.controls.show_product_pannel = 1;
       this.controls.show_others = 1;
       this.controls.add_product = 0;
@@ -33533,16 +33620,87 @@ var render = function () {
   return _c("div", { staticClass: "col-lg-8 col-11 mx-auto" }, [
     _c("h3", { staticClass: "text-center" }, [_vm._v("Your orders...!!")]),
     _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center text-center my-3" }, [
+      _c("span", { staticClass: "my-2 my-lg-0" }, [
+        _vm._v("  From : "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.dates.from,
+              expression: "dates.from",
+            },
+          ],
+          attrs: { type: "date", width: "276" },
+          domProps: { value: _vm.dates.from },
+          on: {
+            input: function ($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.dates, "from", $event.target.value)
+            },
+          },
+        }),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "ml-lg-3 my-2 my-lg-0" }, [
+        _vm._v("To : "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.dates.to,
+              expression: "dates.to",
+            },
+          ],
+          attrs: { type: "date", width: "276" },
+          domProps: { value: _vm.dates.to },
+          on: {
+            input: function ($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.dates, "to", $event.target.value)
+            },
+          },
+        }),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 my-2" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-dark btn-md",
+            on: { click: _vm.filter_dates },
+          },
+          [_vm._v("Apply")]
+        ),
+      ]),
+    ]),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row justify-content-center" },
-      _vm._l(_vm.orders, function (order) {
-        return _c("show-orders-component", {
-          key: order.order_id,
-          attrs: { order: order },
-        })
-      }),
-      1
+      [
+        _vm.orders.length == 0
+          ? _c("div", { staticClass: "col-12 my-2 text-center" }, [
+              _c("button", { staticClass: "btn btn-lg btn-dark" }, [
+                _vm._v("No orders"),
+              ]),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm._l(_vm.orders, function (order) {
+          return _c("show-orders-component", {
+            key: order.order_id,
+            attrs: { order: order },
+          })
+        }),
+      ],
+      2
     ),
   ])
 }
@@ -35564,9 +35722,14 @@ var render = function () {
               [_vm._v("Products")]
             ),
             _vm._v(" "),
-            _c("li", { staticClass: "text-light mb-2 sidebar-font" }, [
-              _vm._v("Users"),
-            ]),
+            _c(
+              "li",
+              {
+                staticClass: "text-light mb-2 sidebar-font",
+                on: { click: _vm.show_edit_stock },
+              },
+              [_vm._v("Edit Stock")]
+            ),
             _vm._v(" "),
             _c(
               "li",
@@ -35628,9 +35791,19 @@ var render = function () {
             [_vm._v("Products")]
           ),
           _vm._v(" "),
-          _c("li", { staticClass: "text-light mb-2 sidebar-font" }, [
-            _vm._v("Users"),
-          ]),
+          _c(
+            "li",
+            {
+              staticClass: "text-light mb-2 sidebar-font",
+              on: {
+                click: function ($event) {
+                  _vm.closeside()
+                  _vm.show_edit_stock()
+                },
+              },
+            },
+            [_vm._v("Edit Stock")]
+          ),
           _vm._v(" "),
           _c(
             "li",

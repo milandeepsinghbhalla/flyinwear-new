@@ -30,12 +30,17 @@
         },
         methods: {
             async continue_clicked(){
-                let obj = {id: this.edit.id}
+                let obj = {id: this.edit.id, vid: this.$current_user.id}
                 console.log("obj  ",obj);
                 await this.$http.post("/api/get-stock",obj).then(res=>{
                     console.log(res.body);
-                    this.edit.current_stock = res.body.current_stock;
-                    this.edit.show_stock = 1;
+                    if(res.body.status==1){
+                        this.edit.current_stock = res.body.current_stock;
+                        this.edit.show_stock = 1;
+                    }
+                    else{
+                        swal(res.body.msg," ","error");
+                    }
                 })
             },
             edit_clicked(){

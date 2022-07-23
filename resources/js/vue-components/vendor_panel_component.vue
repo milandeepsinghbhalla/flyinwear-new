@@ -3,7 +3,7 @@
     <div class="d-none d-lg-block" style="min-height:100vh">
        <ul style="list-style:none;" class="mt-3 sticky-top">
            <li class="text-light mb-2 sidebar-font" v-on:click="show_product_pannel">Products</li>
-           <li class="text-light mb-2 sidebar-font">Users</li>
+           <li class="text-light mb-2 sidebar-font" v-on:click="show_edit_stock" >Edit Stock</li>
             <li class="text-light mb-2 sidebar-font" v-on:click="show_orders_pannel">Orders</li>
        </ul>
     </div>
@@ -12,7 +12,7 @@
                 <a href="javascript:void(0)" class="closebtn" style="position:static;margin-top:5px;margin-left:80%" v-on:click="closeside()">&times;</a>
                 <ul style="list-style:none;" class="sticky-top">
                     <li class="text-light mb-2 sidebar-font" v-on:click="closeside();show_product_pannel();">Products</li>
-                    <li class="text-light mb-2 sidebar-font">Users</li>
+                    <li class="text-light mb-2 sidebar-font" v-on:click="closeside(); show_edit_stock();" >Edit Stock</li>
                     <li class="text-light mb-2 sidebar-font" v-on:click="closeside();show_orders_pannel()">Orders</li>
                 </ul>
             </div>
@@ -23,13 +23,24 @@
     export default{
         props: ["controls"],
         methods: {
+            show_edit_stock(){
+                if(this.$router.route!="/vendor")
+                this.$router.push('/vendor');
+                this.controls.show_product_pannel = 0;
+                this.controls.show_orders_pannel = 0;
+                this.controls.show_edit = 1;
+            },
             show_orders_pannel(){
+                if(this.$router.route!="/vendor-orders")
                 this.$router.push('/vendor-orders');
                 this.controls.show_product_pannel = 0;
                 this.controls.show_orders_pannel = 1;
+                this.controls.show_edit = 0
             },
             show_product_pannel(){
+                if(this.$router.route!="/vendor")
                 this.$router.push('/vendor');
+                this.controls.show_edit = 0;
                 this.controls.show_product_pannel = 1;
                 this.controls.show_others = 1;
                 this.controls.add_product = 0;

@@ -31,7 +31,8 @@ export default{
                    show_orders_pannel: 0,
                    add_product: 0,
                     show_aopc:0,
-                    show_acpc:0
+                    show_acpc:0,
+                    show_edit: 0
                 }
             }
         },
